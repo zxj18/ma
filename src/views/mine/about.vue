@@ -9,12 +9,15 @@
       </p>
       <p class="version">V1.0.0-0330</p>
       <ul class="skipList">
+
         <li>
           隐私协议
           <span class="arrow">
             <img class="arrow" src="../../assets/images/arrow.png">
+
           </span>
         </li>
+
         <li>
           免责条款
           <span class="arrow">

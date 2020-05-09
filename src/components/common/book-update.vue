@@ -2,7 +2,7 @@
   <div class="book-update">
     <book v-if="book" :book="book" >
       <div class="update">
-        更新至第{{book.currentEpisode}}话
+        更新至第{{book.totalEpisode}}话
       </div>
     </book>
   </div>

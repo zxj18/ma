@@ -22,23 +22,19 @@
           <img src="../../assets/images/home_type1.png" />
           <p>推荐</p>
         </div>
+
         <div class="content">
-          <book-score v-for="book in this.specialData" :key="book.id" :book="book" />
-          <div class="book-empty"></div>
-        </div>
-        <!-- <div class="content">
           <router-link
-            v-for="recommend in recommends"
+            v-for="recommend  in recommends"
             :key="recommend.id"
             class="recommend-item"
             :to="{ name: 'details', query: {'id':recommend.id,} }"
           >
-            <img :src="recommend.cover" />
+            <img :src="recommend.cover" style="width:109.09px;height:145.63px;" />
             <img class="cover-ban" src="../../assets/images/cover_ban.png" v-show="isAdult" />
             <p class="recommend-name">{{recommend.title}}</p>
-            <div class="recommend-tips">{{recommend.introduce}}</div>
           </router-link>
-        </div>-->
+        </div>
 
         <div class="btn" v-on:click="initRecommend">
           <img src="../../assets/images/home_btn1.png" />
@@ -274,6 +270,9 @@ export default {
         background-size: 100% 100%;
       }
     }
+    .tag-recommend {
+      background-color: #ffb400;
+    }
 
     .icon-box {
       img {
@@ -335,7 +334,7 @@ export default {
           // height:234px;
           white-space: nowrap;
           min-height: 110px;
-          margin-right: 8px;
+          margin-right: 9px;
           border-radius: 10px;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -356,10 +355,10 @@ export default {
 
           .recommend-name {
             width: 210px;
-            margin: 42px 0 18px;
+            margin: 23px 0 18px;
             color: #231815;
             font-weight: 500;
-            padding-left: 28px;
+            // padding-left: 28px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;

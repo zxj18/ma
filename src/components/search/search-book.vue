@@ -10,7 +10,7 @@
           <p>{{book.title}}</p>
         </div>
         <div class="author">作者：{{book.author}}</div>
-        <div class="update">更新到第{{book.currentEpisode}}话</div>
+        <div class="update">更新到第{{book.totalEpisode}}话</div>
       </div>
     </div>
   </router-link>

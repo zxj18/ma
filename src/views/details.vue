@@ -29,8 +29,9 @@
       </div>
       <div class="bottom">
         <div class="comic-info">
-          <span class="comic-status"  v-if="book.serialized === 0">完结</span>
-          <span>至第{{book.currentEpisode}}话</span>
+          <span class="comic-status"  v-if="book.serialized === 1">连载中</span>
+            <span class="comic-status"  v-if="book.serialized === 0">完结</span>
+          <span>至第{{book.totalEpisode}}话</span>
           <span class="round">·</span>
           <span class="author" v-if="book.author">作家：{{book.author}}</span>
           <span class="author" v-else>作家：匿名</span>

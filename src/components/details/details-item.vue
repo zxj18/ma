@@ -1,16 +1,17 @@
 <template>
   <div class="details-item" @click="tapItem(chapter)">
     <div class="left">
-      <img :src="chapter.cover">
+      <img :src="chapter.cover" />
       <div class="cont">
-<!--        <div class="num">第{{chapter.episode}}话</div>-->
+        <!--        <div class="num">第{{chapter.episode}}话</div>-->
         <div class="title">{{chapter.title}}</div>
         <div class="date">{{chapter.cartoonUpdateTime}}</div>
       </div>
     </div>
     <div class="right" v-if="book.priceType !== 1">
       <div v-if="chapter.priceType === 2">
-        <button class="free-btn">特价</button>
+
+        <button class="free-btn">免费</button>
       </div>
       <div v-else>
         <div v-if="chapter.isBuy === 1">
@@ -33,20 +34,26 @@
       </div>
     </div>
     <div v-else class="right">
-      <button class="free-btn" >{{book.priceType}}</button>
-
     </div>
-
+    <buy-chapter-popup
+      v-if="isShowBuyPopup"
+      :chapter="chapter"
+      :bookSpeicalPrice="this.totalSpecialPrice"
+      @select="buyPopupSelect"
+    ></buy-chapter-popup>
   </div>
 </template>
 
 <script>
+import BuyChapterPopup from '@/components/common/buy-chapter-popup.vue';
 import { getToken } from '../../utils/auth';
+
 
 export default {
   props: ['chapter', 'book', 'totalSpecialPrice'],
   data() {
     return {
+
     };
   },
   methods: {
@@ -72,6 +79,10 @@ export default {
     },
 
   },
+  components: {
+
+    BuyChapterPopup,
+  },
 };
 </script>
 
@@ -81,13 +92,13 @@ export default {
   align-items: center;
   justify-content: space-between;
   font-size: 30px;
-  font-weight:500;
+  font-weight: 500;
   margin-bottom: 70px;
   .left {
     display: flex;
     img {
-      width:241px;
-      height:166px;
+      width: 241px;
+      height: 166px;
       border-radius: 8px;
       margin-right: 32px;
     }
@@ -107,7 +118,7 @@ export default {
         -webkit-line-clamp: 2;
       }
       .date {
-        color: #8B8989;
+        color: #8b8989;
         font-weight: 400;
         font-size: 27px;
       }
@@ -118,29 +129,29 @@ export default {
       padding: 14px 0;
       width: 120px;
       text-align: center;
-      border-radius: 18PX;
+      border-radius: 18px;
       background-color: #fff;
       font-size: 21px;
     }
     .free-btn {
-      color: #418DF6;
-      border: 1PX solid #418DF6;
+      color: #418df6;
+      border: 1px solid #418df6;
     }
     .yet-buy-btn {
-      color: #8B8989;
-      border: 1PX solid #8B8989;
+      color: #8b8989;
+      border: 1px solid #8b8989;
     }
     .buy-btn {
-      color: #FFD000;
-      border: 1PX solid #FFD000;
+      color: #ffd000;
+      border: 1px solid #ffd000;
     }
     .special-btn {
-      color: #FFD000;
-      border: 1PX solid #FFD000;
+      color: #ffd000;
+      border: 1px solid #ffd000;
       display: flex;
       flex-direction: column;
       align-items: center;
-      border-radius: 20PX;
+      border-radius: 20px;
       .old {
         margin-bottom: 5px;
         text-decoration: line-through;
