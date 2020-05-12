@@ -87,6 +87,23 @@ const routes = [
     meta: {
       title: '关于我们',
     },
+
+  },
+  {
+    path: '/Privacy',
+    name: 'Privacy',
+    component: () => import(/* webpackChunkName: "about" */ '../views/mine/Privacy.vue'),
+    meta: {
+      title: '隐私协议',
+    },
+  },
+  {
+    path: '/Exemption',
+    name: 'Exemption',
+    component: () => import(/* webpackChunkName: "about" */ '../views/mine/Exemption.vue'),
+    meta: {
+      title: '免责条款',
+    },
   },
   {
     path: '/vouchers',

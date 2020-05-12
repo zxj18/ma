@@ -9,25 +9,31 @@
       </div>
     </div>
     <div class="right" v-if="book.priceType !== 1">
-      <div v-if="chapter.priceType === 2">
+       <div v-if="book.priceType === 1">
 
-        <button class="free-btn">免费</button>
+        <button class="free-btn" >免费</button>
+      </div>
+      <button v-if="book.startingChapter===1">免费</button>
+
+      <div v-if="book.priceType === 2">
+
+        <button class="free-btn">特价</button>
       </div>
       <div v-else>
-        <div v-if="chapter.isBuy === 1">
+        <div v-if="book.isBuy === 1">
           <button class="yet-buy-btn">已购</button>
         </div>
-        <div v-else-if="chapter.isUseCoupon === 1">
+        <div v-else-if="book.isUseCoupon === 1">
           <button class="free-btn">已用优惠券</button>
         </div>
         <div v-else>
-          <div v-if="chapter.specialPrice === chapter.price">
-            <button class="buy-btn">{{chapter.price}}点券</button>
+          <div v-if="book.specialPrice === book.price">
+            <button class="buy-btn">{{book.price}}点券</button>
           </div>
           <div v-else>
             <button class="special-btn">
-              <span class="old">{{chapter.price}}点券</span>
-              <span>{{chapter.specialPrice}}点券</span>
+              <span v-if="book.specialPrice !== book.price" class="old">{{book.price}}点券</span>
+              <span>{{book.specialPrice}}点券</span>
             </button>
           </div>
         </div>
@@ -58,7 +64,7 @@ export default {
   },
   methods: {
     tapItem(chapter) {
-      if (chapter.priceType === 1 || chapter.isBuy === 1 || chapter.isUseCoupon === 1) {
+      if (chapter.isBuy === 1 || chapter.isUseCoupon === 1) {
         if (getToken()) {
           this.$router.push({
             name: 'content',

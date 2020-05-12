@@ -73,7 +73,8 @@
       <div class="head">
         <div class="left">
           <p>目录</p>
-          <div>上次看到第一话</div>
+          <div>上次看到第{{bookList.history}}话</div>
+
         </div>
         <select-box
           :text="text"

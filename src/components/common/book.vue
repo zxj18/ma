@@ -83,7 +83,7 @@ export default {
           background-color: #FFB400;
         }
       }
-    }
+                }
 
     .title {
       margin: 30px 0 22px;

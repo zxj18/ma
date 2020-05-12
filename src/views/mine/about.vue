@@ -9,21 +9,24 @@
       </p>
       <p class="version">V1.0.0-0330</p>
       <ul class="skipList">
-
-        <li>
+        <router-link :to="{name:'Privacy'}">
+        <li
+  >
           隐私协议
           <span class="arrow">
             <img class="arrow" src="../../assets/images/arrow.png">
 
           </span>
         </li>
-
+         </router-link>
+         <router-link :to="{name:'Exemption'}">
         <li>
           免责条款
           <span class="arrow">
             <img class="arrow" src="../../assets/images/arrow.png">
           </span>
         </li>
+        </router-link>
       </ul>
     </div>
   </div>

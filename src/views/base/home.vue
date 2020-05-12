@@ -31,8 +31,15 @@
             :to="{ name: 'details', query: {'id':recommend.id,} }"
           >
             <img :src="recommend.cover" style="width:109.09px;height:145.63px;" />
+            <div class="tags">
+              <div class="tag-free" v-if="recommend.priceType === 0">特价</div>
+              <div class="tag-free" v-if="recommend.priceType === 1">免费</div>
+
+              <div class="tag-recommend" v-if="recommend.isRecommend==0">推荐</div>
+            </div>
             <img class="cover-ban" src="../../assets/images/cover_ban.png" v-show="isAdult" />
             <p class="recommend-name">{{recommend.title}}</p>
+            <!-- <h2>{{recommend.priceType}}</h2> -->
           </router-link>
         </div>
 
@@ -209,20 +216,48 @@ export default {
       });
     },
     bannerClick(banner) {
-      this.$router.push({
-        path: "details",
-        query: {
-          id: banner.cartoon_id
-        }
-      });
+      // if (banner.urlType === 0) {
+      //   this.$router.push({
+      //     path: "details",
+      //     query: {
+      //       id: banner.cartoon_id
+      //     }
+      //   });
+      // }
+      if (banner.urlType === 1) {
+        this.$router.push({
+          path: "details",
+          query: {
+            id: banner.cartoon_id
+          }
+        });
+      }
+      if (banner.urlType === 2) {
+        this.$router.push({
+          path: "wallet",
+          query: {
+            id: banner.cartoon_id
+          }
+        });
+      }
     },
     bannerClick1(banner) {
-      this.$router.push({
-        path: "details",
-        query: {
-          id: banner.id
-        }
-      });
+       if (banner.urlType === 1) {
+        this.$router.push({
+          path: "details",
+          query: {
+            id: banner.cartoon_id
+          }
+        });
+      }
+      if (banner.urlType === 2) {
+        this.$router.push({
+          path: "wallet",
+          query: {
+            id: banner.cartoon_id
+          }
+        });
+      }
     }
   },
 
@@ -301,6 +336,7 @@ export default {
       width: 100%;
     }
   }
+
   .main {
     margin-top: 50px;
     .category {
@@ -330,11 +366,9 @@ export default {
         justify-content: space-between;
         .recommend-item {
           position: relative;
-          width: 32%;
-          // height:234px;
           white-space: nowrap;
           min-height: 110px;
-          margin-right: 9px;
+          // margin-left: 12px;
           border-radius: 10px;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -413,6 +447,31 @@ export default {
         p {
           color: #8b8989;
           font-weight: 500;
+        }
+      }
+      .tags {
+        height: 100px;
+        position: absolute;
+        left: 0;
+        top: 155px;
+        bottom: 24px;
+        font-size: 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        > div {
+          color: #fff;
+          padding: 8px 14px;
+          border-radius: 0 2px 2px 0;
+        }
+        .tag-free {
+          background-color: #418df6;
+          margin-bottom: 5px;
+        }
+
+        .tag-recommend {
+          background-color: #ffb400;
         }
       }
     }
