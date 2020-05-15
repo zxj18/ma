@@ -1,41 +1,47 @@
 <template>
-  <div class="details-item" @click="tapItem(chapter)">
+  <div class="details-item" @click="tapItem(book,chapter)">
     <div class="left">
       <img :src="chapter.cover" />
       <div class="cont">
         <!--        <div class="num">第{{chapter.episode}}话</div>-->
         <div class="title">{{chapter.title}}</div>
         <div class="date">{{chapter.cartoonUpdateTime}}</div>
+
       </div>
     </div>
-    <div class="right" v-if="book.priceType !== 1">
-       <div v-if="book.priceType === 1">
+    <div class="right" v-if="book.priceType !== 3" >
+      <!-- <div v-if="book.priceType === 1">
 
-        <button class="free-btn" >免费</button>
+        <button class="free-btn">免费</button>
+
+      </div> -->
+         <div v-if="chapter.exemption === 1">
+
+        <button class="free-btn">免费</button>
+
       </div>
-      <button v-if="book.startingChapter===1">免费</button>
 
-      <div v-if="book.priceType === 2">
-
-        <button class="free-btn">特价</button>
-      </div>
       <div v-else>
-        <div v-if="book.isBuy === 1">
+        <div v-if="chapter.isBuy === 1">
           <button class="yet-buy-btn">已购</button>
         </div>
-        <div v-else-if="book.isUseCoupon === 1">
+        <div v-else-if="chapter.isUseCoupon === 1">
           <button class="free-btn">已用优惠券</button>
         </div>
-        <div v-else>
+        <div v-else-if="book.priceType !== 1">
           <div v-if="book.specialPrice === book.price">
             <button class="buy-btn">{{book.price}}点券</button>
+
           </div>
+
           <div v-else>
             <button class="special-btn">
               <span v-if="book.specialPrice !== book.price" class="old">{{book.price}}点券</span>
               <span>{{book.specialPrice}}点券</span>
+
             </button>
           </div>
+
         </div>
       </div>
     </div>
@@ -63,24 +69,24 @@ export default {
     };
   },
   methods: {
-    tapItem(chapter) {
-      if (chapter.isBuy === 1 || chapter.isUseCoupon === 1) {
+    tapItem(book, chapter) {
+      if (chapter.exemption === 1 || book.priceType === 1 || chapter.isBuy === 1 || book.isUseCoupon === 1) {
         if (getToken()) {
           this.$router.push({
             name: 'content',
             query: {
               cartoonId: chapter.cartoonId,
               episode: chapter.episode,
-              totalepisode: this.book.totalEpisode,
+              totalepisode: this.chapter.totalEpisode,
               bookSpeicalPrice: this.totalSpecialPrice,
-              bookName: this.book.title,
+              bookName: this.chapter.title,
             },
           });
         } else {
           this.$router.push({ path: 'login' });
         }
       } else {
-        this.$emit('tap', chapter);
+        this.$emit('tap', book);
       }
     },
 

@@ -1,13 +1,7 @@
 <template>
   <div class="wallet">
-    <header-box
-      :title="'充值'"
-    >
-      <select-box
-        :text="text"
-        :list="list"
-        @choose="choose"
-      ></select-box>
+    <header-box :title="'充值'">
+      <select-box :text="text" :list="list" @choose="choose"></select-box>
     </header-box>
     <div class="header">
       <div class="left">
@@ -21,53 +15,63 @@
     <div class="list">
       <div class="list-header">
         <span>金额 （{{this.text}}）</span>
-        <span class="tl" >基本点券 + 赠送点券</span>
+        <span class="tl">基本点券 + 赠送点券</span>
       </div>
       <ul>
         <li v-for="(pkg, index) in rechargePkgList" :key="pkg.id" @click="tapPkg(pkg,index)">
           <div class="left">
-            <img class="icon-buy" src="../../assets/images/buy_yes.png" alt="" v-if="pkg.select">
-            <img class="icon-buy" src="../../assets/images/buy_no.png" alt="" v-else>
+            <img class="icon-buy" src="../../assets/images/buy_yes.png" alt v-if="pkg.select" />
+            <img class="icon-buy" src="../../assets/images/buy_no.png" alt v-else />
             <span class="amount">{{pkg.price}}</span>
           </div>
           <div class="right">
-            <img class="icon-point" src="../../assets/images/icon_point.png">
+            <img class="icon-point" src="../../assets/images/icon_point.png" />
             <span class="point">{{pkg.baseMoney}}</span>
             <span class="add-point" v-if="pkg.giveMoney">
-              + <span>{{pkg.giveMoney}}点券</span>
+              +
+              <span>{{pkg.giveMoney}}点券</span>
             </span>
           </div>
         </li>
       </ul>
     </div>
     <div class="paylist">
-      <div class="title">
-      请选择储值方式
-      </div>
+      <div class="title">请选择储值方式</div>
       <div class="type">
         <div class="card">
-          <span >
-            <img class="visa" src="../../assets/images/logo_visa.png" alt="" @click="tapRecharge(1)">
-          </span>
-          <span >
-            <img class="paypal" src="../../assets/images/logo_paypal.png" alt="" @click="tapRecharge(2)">
-          </span >
+          <li v-for="item in  getlist" :key="item.id">
+      </li>
           <span>
-            <img class="unionpay" src="../../assets/images/logo_unionpay.png" alt="" @click="tapRecharge(3)">
+            <img class="visa" src="../../assets/images/logo_visa.png" alt @click="tapRecharge(1)" />
+          </span>
+          <span>
+            <img
+              class="paypal"
+              src="../../assets/images/logo_paypal.png"
+              alt
+              @click="tapRecharge(2)"
+            />
+          </span>
+          <span>
+            <img
+              class="unionpay"
+              src="../../assets/images/logo_unionpay.png"
+              alt
+              @click="tapRecharge(3)"
+
+            />
           </span>
         </div>
         <div class="mobile">
           <p>行动支付</p>
           <span>
-            <img class="applepay" src="../../assets/images/logo_applepay.png" alt="">
+            <img class="applepay" src="../../assets/images/logo_applepay.png" alt />
           </span>
         </div>
       </div>
     </div>
     <div class="notice">
-      <div class="title">
-        付款注意事项
-      </div>
+      <div class="title">付款注意事项</div>
       <ul>
         <li>1.確認付款即視為已閱讀，瞭解並同意接受使用條款及隱私政策。</li>
         <li>2.成功付款後，點券將於30分鐘內匯入帳戶，若24小時後仍未到賬，請聯系客服査詢。</li>
@@ -85,11 +89,16 @@ import HeaderBox from '@/components/common/header.vue';
 import SelectBox from '@/components/common/select-box.vue';
 
 export default {
+  method: 'get',
+  headers: {
+    'Content-Type': 'application/json;charset=UTF-8',
+  },
   data() {
     return {
       text: 'RMB',
       list: ['RMB', 'TWD'],
       rechargePkgList: [],
+      getlist: [],
       money: localStorage.getItem('money'),
       pkg: '',
       param: {
@@ -104,6 +113,10 @@ export default {
       html: '',
     };
   },
+  mounted() {
+
+  },
+
   methods: {
     tapRecharge(text) {
       if (text === 1) {
@@ -119,6 +132,7 @@ export default {
         }
       });
     },
+
     tapPkg(pkg, index) {
       for (let i = 0; i < this.rechargePkgList.length; i += 1) {
         this.rechargePkgList[i].select = index === i;
@@ -128,6 +142,8 @@ export default {
       }
       this.pkg = pkg;
     },
+
+
     choose(val) {
       this.text = val;
       this.getRechargePkgList();
@@ -149,12 +165,21 @@ export default {
         }
       });
     },
+    getpayTypeList() {
+      this.$api.payType.getpayTypeList().then((res) => {
+        if (res.code === 200) {
+          this.getlist = res.data;
+        }
+      });
+    },
+
     toRecord() {
       this.$router.push({ path: 'record' });
     },
   },
   created() {
     this.getRechargePkgList();
+    this.getpayTypeList();
   },
   components: {
     HeaderBox,
@@ -174,26 +199,26 @@ export default {
     background-size: cover;
     align-items: center;
     .left {
-      color:rgba(0,0,0,1);
+      color: rgba(0, 0, 0, 1);
       margin-left: 51px;
       p {
         font-size: 26px;
         margin-bottom: 4px;
       }
       h3 {
-        font-size:82px;
+        font-size: 82px;
         font-weight: bold;
       }
-     }
+    }
     .right {
       margin-right: 67px;
       .detail {
         display: inline-block;
         background: url("../../assets/images/detail_btn.png") no-repeat;
         background-size: 100% 100%;
-        font-size:29px;
-        color:rgba(0,0,0,1);
-        width:181px;
+        font-size: 29px;
+        color: rgba(0, 0, 0, 1);
+        width: 181px;
         height: 65px;
         line-height: 65px;
         text-align: center;
@@ -203,10 +228,10 @@ export default {
   .list {
     .list-header {
       display: flex;
-      background:rgba(248,248,248,1);
+      background: rgba(248, 248, 248, 1);
       width: 750px;
       font-size: 30px;
-      color:rgba(35,24,21,1);
+      color: rgba(35, 24, 21, 1);
       padding: 26px 68px 26px 51px;
       box-sizing: border-box;
       span {
@@ -222,7 +247,7 @@ export default {
         display: flex;
         height: 109px;
         align-items: center;
-        border-bottom: 1PX solid #E9E9E9;
+        border-bottom: 1px solid #e9e9e9;
         &:last-child {
           border-bottom: none;
         }
@@ -251,18 +276,19 @@ export default {
         vertical-align: middle;
         margin-right: 30px;
       }
-      .point, .add-point {
+      .point,
+      .add-point {
         vertical-align: middle;
         span {
           vertical-align: middle;
-          color: #FFD000;
+          color: #ffd000;
         }
       }
     }
   }
   .paylist {
     .title {
-      background: rgba(248,248,248,1);
+      background: rgba(248, 248, 248, 1);
       color: #231815;
       font-size: 30px;
       padding: 24px 0 27px 52px;
@@ -292,12 +318,13 @@ export default {
         height: 66px;
         margin: 30px 0 0 40px;
       }
-      .card{
+      .card {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
       }
-      .card ,.mobile {
+      .card,
+      .mobile {
         span {
           display: inline-block;
           width: 221px;
@@ -306,30 +333,31 @@ export default {
           background-size: 100% 100%;
         }
       }
-      .card, .mobile{
+      .card,
+      .mobile {
         .active {
           background: url("../../assets/images/bg_pay_chose.png") no-repeat;
           background-size: 100% 100%;
         }
       }
       .mobile {
-        & >p {
-          font-size:27px;
+        & > p {
+          font-size: 27px;
           margin: 66px 0 28px;
-          color:rgba(139,137,137,1);
+          color: rgba(139, 137, 137, 1);
         }
       }
     }
   }
   .notice {
     .title {
-      background: rgba(248,248,248,1);
+      background: rgba(248, 248, 248, 1);
       color: #231815;
       font-size: 30px;
-      padding:24px 0 27px 45px;
+      padding: 24px 0 27px 45px;
     }
     ul {
-      font-size:28px;
+      font-size: 28px;
       margin: 57px 47px;
       line-height: 1.5;
       li {

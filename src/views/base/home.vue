@@ -123,10 +123,10 @@ export default {
     return {
       isShowSignIn: false,
       bannerParam: {
-        type: 0
+        type: 1
       },
       bannerParam1: {
-        type: 1
+        type: 2
       },
       banner: [],
       banner1: [],
@@ -179,7 +179,7 @@ export default {
     initBanner(param) {
       this.$api.banner.list(param).then(res => {
         if (res.code === 200) {
-          if (param.type === 0) {
+          if (param.type === 1) {
             this.banner = res.data;
           } else {
             this.banner1 = res.data;
@@ -187,9 +187,11 @@ export default {
         }
       });
     },
+
     initRecommend() {
-      this.$api.cartoon.getRecommend().then(res => {
+      this.$api.cartoon.getRecommend().then(res=> {
         if (res.code === 200) {
+
           this.recommends = res.data;
         }
       });
@@ -216,19 +218,14 @@ export default {
       });
     },
     bannerClick(banner) {
-      // if (banner.urlType === 0) {
-      //   this.$router.push({
-      //     path: "details",
-      //     query: {
-      //       id: banner.cartoon_id
-      //     }
-      //   });
-      // }
+      if (banner.urlType === 0) {
+        document.location = "http://baidu.com/";
+      }
       if (banner.urlType === 1) {
         this.$router.push({
           path: "details",
           query: {
-            id: banner.cartoon_id
+            id: banner.cartoonId
           }
         });
       }
@@ -240,13 +237,17 @@ export default {
           }
         });
       }
+
     },
     bannerClick1(banner) {
-       if (banner.urlType === 1) {
+      if (banner.urlType === 0) {
+        document.location = "http://baidu.com/";
+      }
+      if (banner.urlType === 1) {
         this.$router.push({
           path: "details",
           query: {
-            id: banner.cartoon_id
+            id: banner.cartoonId
           }
         });
       }
@@ -259,6 +260,8 @@ export default {
         });
       }
     }
+
+
   },
 
   components: {

@@ -9,6 +9,7 @@ import * as user from './moudules/user';
 import * as message from './moudules/message';
 import * as common from './moudules/common';
 import * as order from './moudules/order';
+import * as payType from './moudules/paytype';
 // 默认全部导出
 export default {
   banner,
@@ -19,4 +20,6 @@ export default {
   message,
   common,
   order,
+  payType,
+
 };

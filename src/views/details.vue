@@ -73,7 +73,8 @@
       <div class="head">
         <div class="left">
           <p>目录</p>
-          <div>上次看到第{{bookList.history}}话</div>
+          <div v-if="book.isHistory===0"></div>
+          <div v-if="book.isHistory===1">上次看到第{{book.history}}话</div>
 
         </div>
         <select-box
@@ -95,12 +96,14 @@
     </div>
     <div class="footer" >
 
-      <div class="price">
+      <div class="price" v-show="book.priceType === 0" >
         <p>购买全部章节:</p>
-        <div class="highlight num">{{this.totalSpecialPrice}}点</div>
-        <div class="tips">立省{{this.totalPrice-this.totalSpecialPrice}}点</div>
+        <div class="highlight num" v-if="book.price===book.specialPrice">{{ (book.totalEpisode-book.startingChapter+1)*book.price}}点</div>
+           <div class="highlight num" v-if="book.price!==book.specialPrice">{{ (book.totalEpisode-book.startingChapter+1)*book.specialPrice}}点</div>
+        <div class="tips" v-if="book.price!==book.specialPrice">立省{{(book.price-book.specialPrice)*book.totalEpisode-book.startingChapter+1}}点</div>
+         <div class="tips" v-if="book.price===book.specialPrice"></div>
       </div>
-      <button class="btn" @click="tapBuy">全部购买</button>
+      <button class="btn" v-show="book.priceType === 0" @click="tapBuy">全部购买</button>
     </div>
     <charge-fail-popup
       v-if="isShowFailPopup"
@@ -236,22 +239,28 @@ export default {
       this.isShowFailPopup = false;
     },
     buyPopupSelect(selectItem, buttonIndex) {
+      debugger;
       if (buttonIndex === 1) {
         if (!getToken()) {
           this.$router.push({ name: 'login' });
         } else {
           if (selectItem === 1) {
             this.buyParams.chapterId = '';
+            this.buyParams.totalPrice = '';
           } else {
             this.buyParams.chapterId = this.chapter.episode;
           }
           this.$api.user.buyCartoon(this.buyParams).then((res) => {
+
             if (res.code === 200) {
               this.addBook();
               this.isShowBuyPopup = false;
               this.getCartoonContentsList();
+              console.log(res.data);
+
             } else {
               this.isShowFailPopup = true;
+
             }
           });
         }
@@ -273,6 +282,7 @@ export default {
       this.$api.cartoon.getCartoonContentsList(this.listParams).then((res) => {
         if (res.code === 200) {
           this.bookList = res.data.content;
+          console.log(res.data);
           this.totalSpecialPrice = res.data.totalSpecialPrice;
           this.totalPrice = res.data.totalPrice;
           for (let i = 0; i < this.bookList.length; i += 1) {

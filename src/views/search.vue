@@ -152,12 +152,25 @@ export default {
       });
     },
     bannerClick(banner) {
-      this.$router.push({
-        path: 'details',
-        query: {
-          id: banner.cartoon_id,
-        },
-      });
+      if (banner.urlType === 0) {
+        document.location = 'https://ping.eu/port-chk/';
+      }
+      if (banner.urlType === 1) {
+        this.$router.push({
+          path: 'details',
+          query: {
+            id: banner.cartoonId,
+          },
+        });
+      }
+      if (banner.urlType === 2) {
+        this.$router.push({
+          path: 'wallet',
+          query: {
+            id: banner.cartoon_id,
+          },
+        });
+      }
     },
   },
   components: {

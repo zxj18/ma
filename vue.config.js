@@ -18,4 +18,11 @@ module.exports = {
       loader: 'language-tw-loader',
     });
   },
+  devServer: {
+    overlay: {
+      warnings: false,
+      errors: false,
+    },
+  },
+
 };

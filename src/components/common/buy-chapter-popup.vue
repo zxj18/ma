@@ -8,6 +8,7 @@
         <div class="item"
           v-for="item in list"
           :key="item.id"
+
           @click="selectItem(item)">
           <div class="info">
             <div :class="{ check: !item.checked, checked: item.checked }"></div>
@@ -69,16 +70,16 @@ export default {
       if (this.chapter){
         let obj = {};
         obj.id = 0;
-        obj.name = '第' + this.chapter.episode + '话';
+        obj.name = '购买该章节'
         obj.checked = true;
-        obj.price = this.chapter.specialPrice +'点券';
+        obj.price = this.chapter.specialPrice  +'点券';
         array.push(obj);
       }
       let obj2 = {};
       obj2.id = 1;
       obj2.name = '购买全部章节';
-      obj2.checked = !this.chapter;
-      obj2.price =  this.bookSpeicalPrice + '点券';
+      obj2.checked =false
+      obj2.price = this.bookSpeicalPrice  +'点券'
       array.push(obj2);
       let i;
       for (i = 0; i < array.length; i += 1) {
@@ -104,6 +105,7 @@ export default {
       color: #231815;
       text-align: center;
       margin-bottom: 70px;
+
     }
     .cont {
       padding: 0 20px;

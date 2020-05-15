@@ -1,6 +1,10 @@
 <template>
   <div class="login">
-    <img class="banner" src="../../assets/images/user_bg.png">
+    <!-- <img class="banner" src="../../assets/images/user_bg.png"> -->
+
+   <div class="banner">
+      <vue-swiper :banner="this.banners" @bannerClick="bannerClick"/>
+    </div>
     <div class="main">
       <div class="btn-box">
         <button class="register-btn" @click="goPage('register')">注册</button>
@@ -32,7 +36,9 @@
 </template>
 
 <script>
+import VueSwiper from '@/components/common/vue-swiper.vue';
 import { setToken } from '../../utils/auth';
+
 
 export default {
   data() {
@@ -40,7 +46,12 @@ export default {
       param: {
         account: '',
         password: '',
+
       },
+      bannerParam: {
+        type: 0,
+      },
+      banners: [],
       fromPath: '',
     };
   },
@@ -75,18 +86,57 @@ export default {
         }
       });
     },
+    initBanner(param) {
+      this.$api.banner.list(param).then((res) => {
+        if (res.code === 200) {
+          this.banners = res.data;
+        }
+      });
+    },
+    bannerClick(banner) {
+      if (banner.urlType === 0) {
+        document.location = 'https://ping.eu/port-chk/';
+      }
+      if (banner.urlType === 1) {
+        this.$router.push({
+          path: 'details',
+          query: {
+            id: banner.cartoonId,
+          },
+        });
+      }
+      if (banner.urlType === 2) {
+        this.$router.push({
+          path: 'wallet',
+          query: {
+            id: banner.cartoon_id,
+          },
+        });
+      }
+    },
+  },
+
+
+  created() {
+    this.initBanner(this.bannerParam);
+  },
+  components: {
+
+    VueSwiper,
   },
 };
 </script>
 
 <style scoped lang="less">
+
   .login {
     font-size: 34px;
     position: relative;
     padding-bottom: 88px;
     .banner {
       width: 100%;
-      height:196px;
+
+
     }
     .main {
       padding: 0 82px 0;

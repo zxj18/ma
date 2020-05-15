@@ -9,7 +9,8 @@
         <div class="title">
           <p>{{book.title}}</p>
         </div>
-        <div class="author">作者：{{book.author}}</div>
+        <div class="author">作者：{{book.author}}   <span v-if="book.author===''">匿名</span></div>
+
         <div class="update">更新到第{{book.totalEpisode}}话</div>
       </div>
     </div>
@@ -79,6 +80,9 @@ export default {
         color: #8B8989;
         font-weight:400;
         margin-bottom: 20px;
+      }
+      .author span{
+        font-size: 24px;
       }
       .update {
         width: 400px;
