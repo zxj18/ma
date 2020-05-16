@@ -75,7 +75,6 @@
           <p>目录</p>
           <div v-if="book.isHistory===0"></div>
           <div v-if="book.isHistory===1">上次看到第{{book.history}}话</div>
-
         </div>
         <select-box
           :text="text"
@@ -94,14 +93,14 @@
         ></details-item>
       </div>
     </div>
-    <div class="footer" >
+    <div class="footer"  v-if="!isAllBuy">
 
       <div class="price" v-show="book.priceType === 0" >
         <p>购买全部章节:</p>
         <div class="highlight num" v-if="book.price===book.specialPrice">{{ (book.totalEpisode-book.startingChapter+1)*book.price}}点</div>
-           <div class="highlight num" v-if="book.price!==book.specialPrice">{{ (book.totalEpisode-book.startingChapter+1)*book.specialPrice}}点</div>
+        <div class="highlight num" v-if="book.price!==book.specialPrice">{{ (book.totalEpisode-book.startingChapter+1)*book.specialPrice}}点</div>
         <div class="tips" v-if="book.price!==book.specialPrice">立省{{(book.price-book.specialPrice)*book.totalEpisode-book.startingChapter+1}}点</div>
-         <div class="tips" v-if="book.price===book.specialPrice"></div>
+        <div class="tips" v-if="book.price===book.specialPrice"></div>
       </div>
       <button class="btn" v-show="book.priceType === 0" @click="tapBuy">全部购买</button>
     </div>
@@ -112,6 +111,7 @@
 
     <buy-chapter-popup
       v-if="isShowBuyPopup"
+      :book="book"
       :chapter="chapter"
       :bookSpeicalPrice="this.totalSpecialPrice"
       @select="buyPopupSelect">
@@ -139,6 +139,7 @@ export default {
       bookList: [],
       totalPrice: '',
       totalSpecialPrice: '',
+      isAllBuy: '',
       isAllFree: true,
       params: {
         cartoonId: this.$route.query.id,
@@ -152,6 +153,7 @@ export default {
       buyParams: {
         cartoonId: this.$route.query.id,
         chapterId: '',
+        totalPrice: '',
       },
       fromPath: '',
     };
@@ -205,7 +207,7 @@ export default {
       this.chapter = '';
       this.isShowBuyPopup = true;
     },
-    tapItem(chapter) {
+    tapItem(book, chapter) {
       console.log(chapter);
       this.chapter = chapter;
       this.isShowBuyPopup = true;
@@ -239,28 +241,25 @@ export default {
       this.isShowFailPopup = false;
     },
     buyPopupSelect(selectItem, buttonIndex) {
-      debugger;
+      // debugger;
       if (buttonIndex === 1) {
         if (!getToken()) {
           this.$router.push({ name: 'login' });
         } else {
           if (selectItem === 1) {
             this.buyParams.chapterId = '';
-            this.buyParams.totalPrice = '';
+            this.buyParams.totalPrice = this.totalSpecialPrice;
           } else {
             this.buyParams.chapterId = this.chapter.episode;
           }
           this.$api.user.buyCartoon(this.buyParams).then((res) => {
-
             if (res.code === 200) {
               this.addBook();
               this.isShowBuyPopup = false;
               this.getCartoonContentsList();
               console.log(res.data);
-
             } else {
               this.isShowFailPopup = true;
-
             }
           });
         }
@@ -285,6 +284,7 @@ export default {
           console.log(res.data);
           this.totalSpecialPrice = res.data.totalSpecialPrice;
           this.totalPrice = res.data.totalPrice;
+          this.isAllBuy = res.data.isAllBuy;
           for (let i = 0; i < this.bookList.length; i += 1) {
             if (this.bookList[i].priceType !== 1 && this.bookList[i].isBuy !== 1 && this.bookList[i].isUseCoupon !== 1) {
               this.isAllFree = false;

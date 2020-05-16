@@ -13,11 +13,11 @@
 // 亚马逊云
 // export const baseUrl = 'http://18.221.3.200:9999/api';
 // 本地
-// export const baseUrl = 'http://192.168.3.6:9998/api';
+export const baseUrl = 'http://192.168.3.6:9998/api';
 // 打包地址
 // export const baseUrl = 'http://13.229.102.48:9999/api';
 
-export const baseUrl = 'http://xtyitt.natappfree.cc/api';
+// export const baseUrl = 'http://xtyitt.natappfree.cc/api';
 
 
 export default {

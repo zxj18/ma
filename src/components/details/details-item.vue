@@ -47,17 +47,11 @@
     </div>
     <div v-else class="right">
     </div>
-    <buy-chapter-popup
-      v-if="isShowBuyPopup"
-      :chapter="chapter"
-      :bookSpeicalPrice="this.totalSpecialPrice"
-      @select="buyPopupSelect"
-    ></buy-chapter-popup>
   </div>
 </template>
 
 <script>
-import BuyChapterPopup from '@/components/common/buy-chapter-popup.vue';
+// import BuyChapterPopup from '@/components/common/buy-chapter-popup.vue';
 import { getToken } from '../../utils/auth';
 
 
@@ -86,14 +80,14 @@ export default {
           this.$router.push({ path: 'login' });
         }
       } else {
-        this.$emit('tap', book);
+        this.$emit('tap', book, chapter);
       }
     },
 
   },
   components: {
 
-    BuyChapterPopup,
+    // BuyChapterPopup,
   },
 };
 </script>

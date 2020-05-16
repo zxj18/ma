@@ -26,7 +26,7 @@
 import Confirm from '@/components/common/confirm.vue';
 
 export default {
-  props: ['chapter','bookSpeicalPrice'],
+  props: ['book','chapter','bookSpeicalPrice'],
   data() {
     return {
       selectId: 0,
@@ -72,13 +72,15 @@ export default {
         obj.id = 0;
         obj.name = '购买该章节'
         obj.checked = true;
-        obj.price = this.chapter.specialPrice  +'点券';
+        obj.price = this.book.specialPrice  +'点券';
         array.push(obj);
+      } else {
+        this.selectId = 1;
       }
       let obj2 = {};
       obj2.id = 1;
       obj2.name = '购买全部章节';
-      obj2.checked =false
+      obj2.checked = !this.chapter;
       obj2.price = this.bookSpeicalPrice  +'点券'
       array.push(obj2);
       let i;
