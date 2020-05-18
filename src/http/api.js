@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /*
  * 接口统一集成模块
  */
@@ -10,6 +11,8 @@ import * as message from './moudules/message';
 import * as common from './moudules/common';
 import * as order from './moudules/order';
 import * as payType from './moudules/paytype';
+import * as payWay from './moudules/payway';
+
 // 默认全部导出
 export default {
   banner,
@@ -21,5 +24,6 @@ export default {
   common,
   order,
   payType,
+  payWay,
 
 };

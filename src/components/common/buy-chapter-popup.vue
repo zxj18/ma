@@ -26,7 +26,7 @@
 import Confirm from '@/components/common/confirm.vue';
 
 export default {
-  props: ['book','chapter','bookSpeicalPrice'],
+  props: ['chapter','book','bookSpeicalPrice',],
   data() {
     return {
       selectId: 0,
@@ -83,6 +83,7 @@ export default {
       obj2.checked = !this.chapter;
       obj2.price = this.bookSpeicalPrice  +'点券'
       array.push(obj2);
+
       let i;
       for (i = 0; i < array.length; i += 1) {
         this.list.push({ ...array[i]});

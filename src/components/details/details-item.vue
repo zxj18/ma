@@ -6,16 +6,17 @@
         <!--        <div class="num">第{{chapter.episode}}话</div>-->
         <div class="title">{{chapter.title}}</div>
         <div class="date">{{chapter.cartoonUpdateTime}}</div>
+          <!-- <div class="date">{{book.serialized}}</div> -->
 
       </div>
     </div>
     <div class="right" v-if="book.priceType !== 3" >
-      <!-- <div v-if="book.priceType === 1">
+      <div v-if="book.priceType === 1">
 
         <button class="free-btn">免费</button>
 
-      </div> -->
-         <div v-if="chapter.exemption === 1">
+      </div>
+         <div v-else-if="chapter.exemption === 1">
 
         <button class="free-btn">免费</button>
 
@@ -64,7 +65,7 @@ export default {
   },
   methods: {
     tapItem(book, chapter) {
-      if (chapter.exemption === 1 || book.priceType === 1 || chapter.isBuy === 1 || book.isUseCoupon === 1) {
+      if (chapter.exemption === 1 || book.priceType === 1 || chapter.isBuy === 1 || chapter.isUseCoupon === 1) {
         if (getToken()) {
           this.$router.push({
             name: 'content',
@@ -73,7 +74,9 @@ export default {
               episode: chapter.episode,
               totalepisode: this.chapter.totalEpisode,
               bookSpeicalPrice: this.totalSpecialPrice,
+              specialPrice: this.chapter.specialPrice,
               bookName: this.chapter.title,
+
             },
           });
         } else {

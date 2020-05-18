@@ -7,6 +7,7 @@ export const getpayTypeList= () => {
     url: '/payType/list',
     method: 'get',
     headers: {'Content-Type':'application/x-www-form-urlencoded'},
+
   })
 }
 

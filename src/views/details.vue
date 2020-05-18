@@ -102,7 +102,7 @@
         <div class="tips" v-if="book.price!==book.specialPrice">立省{{(book.price-book.specialPrice)*book.totalEpisode-book.startingChapter+1}}点</div>
         <div class="tips" v-if="book.price===book.specialPrice"></div>
       </div>
-      <button class="btn" v-show="book.priceType === 0" @click="tapBuy">全部购买</button>
+      <button class="btn" v-show="book.priceType === 0" v-if="book.serialized ===0" @click="tapBuy">全部购买</button>
     </div>
     <charge-fail-popup
       v-if="isShowFailPopup"

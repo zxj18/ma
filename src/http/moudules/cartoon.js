@@ -87,6 +87,7 @@ export const peopleSearch = (data) => {
   return axios({
     url: '/cartoon/peopleSearch',
     method: 'get',
+    params: data,
   })
 }
 //漫画大家都在搜锁
