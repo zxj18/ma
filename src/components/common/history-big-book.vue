@@ -8,7 +8,7 @@
       <div class="content">
         <div class="title">{{book.title}}</div>
         <div class="chapter">{{book.introduce}}</div>
-        <div class="update">更新到第{{book.currentEpisode}}了</div>
+        <div class="update">更新到第{{book.totalEpisode}}了</div>
       </div>
       <slot></slot>
     </div>

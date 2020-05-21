@@ -18,8 +18,9 @@ export default {
     rollback() {
       if (this.$listeners.back) {
         this.$emit('back');
+      // eslint-disable-next-line no-empty
       } else {
-        this.$router.back();
+        this.$router.push('/classification');
       }
     },
   },

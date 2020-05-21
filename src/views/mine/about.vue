@@ -5,9 +5,9 @@
     ></header-box>
     <div class="content">
       <p class="logo">
-        <img src="../../assets/images/logo_about.png">
+         <img src="../../assets/images/about.png" alt />
       </p>
-      <p class="version">V1.0.0-0330</p>
+      <!-- <p class="version">V1.0.0-0330</p> -->
       <ul class="skipList">
         <router-link :to="{name:'Privacy'}">
         <li

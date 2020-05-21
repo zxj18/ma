@@ -5,7 +5,7 @@
         <div>
           <p class="name" v-if="this.userInfo.nickName">{{this.userInfo.nickName}}</p>
           <p class="name" v-else>{{this.userInfo.account}}</p>
-          <p class="id">ID: {{this.userInfo.id}}</p>
+          <p class="id">ID: {{this.userInfo.id}} </p>
         </div>
         <img class="avatar" src="../../assets/images/default_avatar.png">
       </div>
@@ -116,6 +116,7 @@ export default {
         token: localStorage.getItem('token'),
       },
       messageCount: '',
+
     };
   },
   methods: {

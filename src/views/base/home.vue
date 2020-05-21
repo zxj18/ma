@@ -2,7 +2,7 @@
   <div class="home">
     <div class="header">
       <div class="title">
-        <img src="../../assets/images/logo_index.png" alt />
+        <img src="../../assets/images/home.png" alt />
         <span :class="{on:isAdult}" @click="showAdult"></span>
       </div>
       <div class="icon-box">
@@ -20,8 +20,9 @@
       <div class="category">
         <div class="head">
           <img src="../../assets/images/home_type1.png" />
-          <p>推荐</p>
+          <p>精選</p>
         </div>
+
 
         <div class="content">
           <router-link
@@ -34,11 +35,20 @@
             <div class="tags">
               <div class="tag-free" v-if="recommend.priceType === 0">特价</div>
               <div class="tag-free" v-if="recommend.priceType === 1">免费</div>
-
               <div class="tag-recommend" v-if="recommend.isRecommend==0">推荐</div>
             </div>
             <img class="cover-ban" src="../../assets/images/cover_ban.png" v-show="isAdult" />
             <p class="recommend-name">{{recommend.title}}</p>
+             <div class="score">
+              <div class="star">
+                <img src="../../assets/images/star.png" />
+                <img src="../../assets/images/star.png" />
+                <img src="../../assets/images/star.png" />
+                <img src="../../assets/images/star.png" />
+                <img src="../../assets/images/star_un.png" />
+              </div>
+              <p>4.0</p>
+            </div>
             <!-- <h2>{{recommend.priceType}}</h2> -->
           </router-link>
         </div>
@@ -48,7 +58,7 @@
           <p>换一批</p>
         </div>
       </div>
-      <div class="category">
+      <!-- <div class="category">
         <div class="head">
           <img src="../../assets/images/home_type2.png" />
           <p>免费 / 特价</p>
@@ -63,8 +73,8 @@
             <p>查看全部免费 / 特价</p>
           </div>
         </router-link>
-      </div>
-      <div class="category">
+      </div> -->
+      <!-- <div class="category">
         <div class="head">
           <img src="../../assets/images/home_type3.png" />
           <p>本周排名</p>
@@ -87,14 +97,14 @@
             <p>查看完整榜单</p>
           </div>
         </router-link>
-      </div>
+      </div> -->
       <div class="banner">
         <vue-swiper :banner="this.banner1" @bannerClick="bannerClick1" />
       </div>
       <div class="category">
         <div class="head">
           <img src="../../assets/images/home_type4.png" />
-          <p>追更</p>
+          <p>連載</p>
         </div>
         <div class="content">
           <book-update v-for="book in pursues" :key="book.id" :book="book" />
@@ -286,6 +296,8 @@ export default {
     padding: 30px 0;
     margin-bottom: 20px;
 
+
+
     .title {
       font-size: 42px;
       color: #231815;
@@ -362,7 +374,9 @@ export default {
           color: #231815;
           font-weight: bold;
         }
+
       }
+
       .content {
         display: flex;
         flex-wrap: wrap;
@@ -433,6 +447,26 @@ export default {
           }
         }
       }
+      .score {
+        display: flex;
+        align-items: center;
+        .star {
+          width: 138px;
+          display: flex;
+          justify-content: space-between;
+          margin-right: 17px;
+          img {
+            width: 22px;
+            height: 21px;
+          }
+        }
+        p {
+          font-size: 24px;
+          color: #ffd000;
+          font-weight: 500;
+        }
+      }
+
       .btn {
         display: flex;
         background-color: #f8f8f8;

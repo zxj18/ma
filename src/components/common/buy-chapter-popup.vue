@@ -26,11 +26,13 @@
 import Confirm from '@/components/common/confirm.vue';
 
 export default {
-  props: ['chapter','book','bookSpeicalPrice',],
+  props: ['chapter','book','bookSpeicalPrice','price'],
   data() {
     return {
       selectId: 0,
+
       list: [
+
       //   {
       //   id: 0,
       //   name: '第' + this.chapter.episode + '话',
@@ -51,6 +53,7 @@ export default {
       //   name: '使用全免观看券',
       //   checked: false,
       // }
+
       ],
     };
   },
@@ -87,6 +90,7 @@ export default {
       let i;
       for (i = 0; i < array.length; i += 1) {
         this.list.push({ ...array[i]});
+
       }
     },
   },

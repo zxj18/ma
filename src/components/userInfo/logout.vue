@@ -4,7 +4,7 @@
         <h3>您确定要登出吗？</h3>
         <p>退出登入后书柜和账户信息将不再展示</p>
         <div class="button-list">
-            <img src="../../assets/images/think_again_btn.png" @click="$emit('close')">
+            <img src="../../assets/images/think_again_btn.png"  @click="tapbay()">
             <img src="../../assets/images/yes_btn.png" @click="$emit('close')">
         </div>
       </div>
@@ -19,6 +19,10 @@ export default {
     };
   },
   methods: {
+    // eslint-disable-next-line space-before-blocks
+    tapbay(){
+      this.$router.push({ path: '/serviceCenter' });
+    },
   },
 };
 </script>

@@ -35,10 +35,10 @@
       <div class="title" @click="tapDirectory">目录</div>
       <div class="switch">
         <img :src="isUpClick ? iconUpYes : iconUpNo">
-        <p :class="{disable: !isUpClick }" @click="pre">上一话</p>
+        <p :class="{disable: !isUpClick }" :name="this.title" @click="pre">上一话</p>
       </div>
       <div class="switch">
-        <p :class="{disable: !isDownClick }" @click="next">下一话</p>
+        <p :class="{disable: !isDownClick }" :name="this.title" @click="next">下一话</p>
         <img :src="isDownClick ? iconDownYes : iconDownNo">
       </div>
       <div @click="tapGoTop">
@@ -55,6 +55,12 @@
     <buy-chapter-popup
       v-if="isShowBuyPopup"
       :chapter="chapter"
+      :book="book"
+      :price="price"
+
+
+      :item="item"
+
       :bookSpeicalPrice="bookSpeicalPrice"
       @select="buyPopupSelect">
     </buy-chapter-popup>
@@ -77,8 +83,12 @@ export default {
     return {
       chapter: '',
       list: [],
+      price: this.$route.query.price,
+
+
       isShowFailPopup: false,
       isShowBuyPopup: false,
+
       iconUpNo,
       iconUpYes,
       iconDownNo,
@@ -90,7 +100,9 @@ export default {
       isShowHeader: true,
       isShowDirectory: false,
       initScroll: 0,
+
       bookSpeicalPrice: this.$route.query.bookSpeicalPrice,
+      book: this.$route.query.book,
       totalEpisode: this.$route.query.totalepisode,
       cartoonId: this.$route.query.cartoonId,
       episode: this.$route.query.episode,
@@ -138,6 +150,7 @@ export default {
       });
     },
     pre() {
+      debugger;
       const episode = parseInt(this.episode, 10) - 1;
       if (episode < 1) {
         return;
@@ -146,6 +159,7 @@ export default {
       this.tapContentItem(episode);
     },
     next() {
+      debugger;
       const episode = parseInt(this.episode, 10) + 1;
       if (episode > this.totalEpisode) {
         return;
@@ -216,9 +230,10 @@ export default {
       let i;
       let needBuy = true;
       for (i = 0; i < this.chapterList.length; i += 1) {
+        debugger;
         if (this.chapterList[i].episode === episode) {
           this.chapter = this.chapterList[i];
-          if (this.chapterList[i].isBuy === 1 || this.chapterList[i].priceType === 1 || this.chapterList[i].isUseCoupon === 1) {
+          if (this.chapter.exemption === 1 || this.chapter.isBuy === 1 || this.book.priceType === 1 || this.chapter.isUseCoupon === 1) {
             needBuy = false;
             break;
           }
@@ -226,6 +241,7 @@ export default {
       }
       console.log('needBuy');
       console.log(needBuy);
+      console.log(this.chapterList);
       if (needBuy) {
         this.isShowBuyPopup = true;
       } else {

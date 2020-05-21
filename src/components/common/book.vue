@@ -2,11 +2,15 @@
   <router-link :to="{ name: 'details', query: {id: book.id} }" v-if="book">
     <div class="book">
       <div class="picture-box">
-        <img class="cover-ban" src="../../assets/images/cover_ban.png" v-show="isAdult">
+        <div class="cover-ban"  v-if="book.isAdult ===1">
+        <img src="../../assets/images/cover_ban.png" style="width:20px;height:20px;"/>
+        </div>
+
         <img class="picture" :src="book.cover" >
         <div class="tags">
           <div class="tag-free" v-if="book.priceType==1">免费</div>
           <div class="tag-free" v-if="book.priceType==0">特价</div>
+
           <div class="tag-recommend" v-if="book.isRecommend==1">推荐</div>
         </div>
       </div>

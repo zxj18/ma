@@ -1,4 +1,5 @@
 <template>
+  <div class="body"  >
   <div class="header" >
   <div class="wallet">
     <header-box :title="'充值'">
@@ -89,6 +90,7 @@
     <div></div>
   </div>
   </div>
+  </div>
 </template>
 <script>
 import HeaderBox from '@/components/common/header.vue';
@@ -159,6 +161,7 @@ export default {
       }
       this.pkg = pkg;
     },
+
 
     choose(val) {
       this.text = val;

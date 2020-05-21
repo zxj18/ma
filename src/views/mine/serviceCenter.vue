@@ -9,7 +9,7 @@
       <p>常见问题中没有您要的解答吗？建议您通过1：1 </p>
       <p>客服提问，我们将尽快为您解答。</p>
       <p>聯係我們:</p>
-      <p>郵箱：hangtooncs@hotmail.com </p>
+      <p>郵箱：xiaoxiaoman2020@gmail.com   </p>
 
       <!-- <p>123456@126.com <span>/</span> 0591-1234567</p> -->
     </div>

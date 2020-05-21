@@ -64,18 +64,22 @@ export default {
     };
   },
   methods: {
+    // eslint-disable-next-line vue/no-dupe-keys
     tapItem(book, chapter) {
       if (chapter.exemption === 1 || book.priceType === 1 || chapter.isBuy === 1 || chapter.isUseCoupon === 1) {
+        debugger;
         if (getToken()) {
           this.$router.push({
             name: 'content',
             query: {
-              cartoonId: chapter.cartoonId,
-              episode: chapter.episode,
+              cartoonId: this.chapter.cartoonId,
+              episode: this.chapter.episode,
               totalepisode: this.chapter.totalEpisode,
               bookSpeicalPrice: this.totalSpecialPrice,
               specialPrice: this.chapter.specialPrice,
               bookName: this.chapter.title,
+              book: this.book,
+
 
             },
           });
@@ -83,6 +87,7 @@ export default {
           this.$router.push({ path: 'login' });
         }
       } else {
+        debugger;
         this.$emit('tap', book, chapter);
       }
     },
