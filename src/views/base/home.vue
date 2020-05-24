@@ -58,22 +58,7 @@
           <p>换一批</p>
         </div>
       </div>
-      <!-- <div class="category">
-        <div class="head">
-          <img src="../../assets/images/home_type2.png" />
-          <p>免费 / 特价</p>
-        </div>
-        <div class="content">
-          <book-score v-for="book in this.specialData" :key="book.id" :book="book" />
-          <div class="book-empty"></div>
-        </div>
-        <router-link :to="{ name: 'classification', query: { type: 0, priceType: 1,}}">
-          <div class="btn">
-            <img src="../../assets/images/home_btn2.png" />
-            <p>查看全部免费 / 特价</p>
-          </div>
-        </router-link>
-      </div> -->
+
       <!-- <div class="category">
         <div class="head">
           <img src="../../assets/images/home_type3.png" />
@@ -110,6 +95,22 @@
           <book-update v-for="book in pursues" :key="book.id" :book="book" />
           <div class="book-empty"></div>
         </div>
+        <div class="category">
+        <div class="head" style="margin-top:10px;">
+          <img src="../../assets/images/end.png" />
+          <p>已完结</p>
+        </div>
+        <div class="content">
+          <book-score v-for="book in this.specialDatas" :key="book.id" :book="book" />
+          <div class="book-empty"></div>
+        </div>
+        <router-link :to="{ name: 'classification', query: { type: 0, priceType: 2,}}">
+          <div class="btn">
+            <img src="../../assets/images/endall.png" />
+            <p>查看全部完结</p>
+          </div>
+        </router-link>
+      </div>
       </div>
     </div>
 
@@ -142,6 +143,7 @@ export default {
       banner1: [],
       recommends: [],
       specialData: [],
+      specialDatas:[],
       bookRank: [],
       pursues: [],
       isAdult: false,
@@ -160,6 +162,8 @@ export default {
       this.initBanner(this.bannerParam1);
       this.initRecommend();
       this.freeOrSpecialPrice();
+      this.cartoonEnd()
+
       this.cartoonRank();
       this.cartoonPursue();
     },
@@ -206,10 +210,19 @@ export default {
         }
       });
     },
+    //免费特价接口
     freeOrSpecialPrice() {
       this.$api.cartoon.freeOrSpecialPrice().then(res => {
         if (res.code === 200) {
           this.specialData = res.data;
+        }
+      });
+    },
+    //完结接口
+   cartoonEnd() {
+      this.$api.cartoon.cartoonEnd().then(res => {
+        if (res.code === 200) {
+          this.specialDatas = res.data;
         }
       });
     },

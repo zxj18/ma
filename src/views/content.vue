@@ -18,7 +18,7 @@
     </div>
     <div class="directory" id="directory" v-if="isShowDirectory">
       <div v-for="chapter in chapterList" :key="chapter.id" class="item" @click="tapContentItem(chapter.episode, true)">
-        <img :src="chapter.cover" v-bind:id="'chapter' + chapter.episode" v-bind:class="[{ 'chapter-selected': chapter.episode ==  episode}, {}]">
+        <img  :src="chapter.cover" v-bind:id="'chapter' + chapter.episode" v-bind:class="[{ 'chapter-selected': chapter.episode ==  episode}, {}]">
         <p>{{chapter.title}}</p>
       </div>
     </div>
@@ -35,10 +35,10 @@
       <div class="title" @click="tapDirectory">目录</div>
       <div class="switch">
         <img :src="isUpClick ? iconUpYes : iconUpNo">
-        <p :class="{disable: !isUpClick }" :name="this.title" @click="pre">上一话</p>
+        <p :class="{disable: !isUpClick }" @click="pre" :name="this.title">上一话</p>
       </div>
       <div class="switch">
-        <p :class="{disable: !isDownClick }" :name="this.title" @click="next">下一话</p>
+        <p :class="{disable: !isDownClick }" @click="next" :name="this.title">下一话</p>
         <img :src="isDownClick ? iconDownYes : iconDownNo">
       </div>
       <div @click="tapGoTop">
@@ -57,11 +57,9 @@
       :chapter="chapter"
       :book="book"
       :price="price"
-
-
-      :item="item"
-
       :bookSpeicalPrice="bookSpeicalPrice"
+      :totalPrice="totalPrice"
+      :specialPrice="specialPrice"
       @select="buyPopupSelect">
     </buy-chapter-popup>
   </div>
@@ -102,6 +100,8 @@ export default {
       initScroll: 0,
 
       bookSpeicalPrice: this.$route.query.bookSpeicalPrice,
+      specialPrice: this.$route.query.specialPrice,
+      totalPrice: this.$route.query.totalPrice,
       book: this.$route.query.book,
       totalEpisode: this.$route.query.totalepisode,
       cartoonId: this.$route.query.cartoonId,
@@ -115,12 +115,14 @@ export default {
       },
       listParams: {
         cartoonId: this.$route.query.cartoonId,
+
         pageNum: 1,
         pageSize: 500,
       },
       chapterList: [],
       buyParams: {
         cartoonId: this.$route.query.cartoonId,
+        totalPrice: this.$route.query.totalPrice,
         chapterId: '',
       },
       busy: true,
@@ -147,6 +149,8 @@ export default {
       this.$router.push({
         name: 'details',
         query: { id: this.cartoonId },
+        // eslint-disable-next-line no-dupe-keys
+
       });
     },
     pre() {
@@ -161,7 +165,7 @@ export default {
     next() {
       debugger;
       const episode = parseInt(this.episode, 10) + 1;
-      if (episode > this.totalEpisode) {
+      if (episode < this.totalEpisode) {
         return;
       }
       this.isPre = false;
@@ -230,7 +234,6 @@ export default {
       let i;
       let needBuy = true;
       for (i = 0; i < this.chapterList.length; i += 1) {
-        debugger;
         if (this.chapterList[i].episode === episode) {
           this.chapter = this.chapterList[i];
           if (this.chapter.exemption === 1 || this.chapter.isBuy === 1 || this.book.priceType === 1 || this.chapter.isUseCoupon === 1) {

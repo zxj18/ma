@@ -20,7 +20,7 @@ export default {
         this.$emit('back');
       // eslint-disable-next-line no-empty
       } else {
-        this.$router.push('/classification');
+        this.$router.go(-1);
       }
     },
   },

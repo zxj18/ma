@@ -1,5 +1,5 @@
 <template>
-  <div class="body"  >
+  <div class="body">
   <div class="header" >
   <div class="wallet">
     <header-box :title="'充值'">
@@ -114,6 +114,7 @@ export default {
 
       isShowFailPopup: false,
       isShowBuyPopup: false,
+      isShowBuyPopups: false,
       money: localStorage.getItem('money'),
       pkg: '',
       pkgMoney: '',
@@ -197,7 +198,7 @@ export default {
     toRecord() {
       this.$router.push({ path: 'record' });
     },
-    // eslint-disable-next-line no-unused-vars
+
 
     tapBuy(typeId) {
       this.chapter = '';

@@ -1,10 +1,13 @@
+
 <template>
   <div class="logout" v-if="show" @click="$emit('close')">
       <div class="content" @click.stop>
         <h3>您确定要登出吗？</h3>
         <p>退出登入后书柜和账户信息将不再展示</p>
         <div class="button-list">
-            <img src="../../assets/images/think_again_btn.png"  @click="tapbay()">
+          <div v-show="show">
+            <img src="../../assets/images/think_again_btn.png" @click="hiddenShow()">
+            </div>
             <img src="../../assets/images/yes_btn.png" @click="$emit('close')">
         </div>
       </div>
@@ -16,13 +19,18 @@ export default {
   props: ['show'],
   data() {
     return {
+      // eslint-disable-next-line vue/no-dupe-keys
+      show: false,
     };
   },
+  // eslint-disable-next-line object-shorthand
+
   methods: {
-    // eslint-disable-next-line space-before-blocks
-    tapbay(){
-      this.$router.push({ path: '/serviceCenter' });
+    hiddenShow() {
+      const that = this;
+      that.show = false;
     },
+
   },
 };
 </script>

@@ -23,6 +23,12 @@ export const freeOrSpecialPrice = () => {
     method: 'get'
   })
 }
+export const cartoonEnd = () => {
+  return axios({
+    url: '/cartoon/cartoonEnd',
+    method: 'get'
+  })
+}
 
 export const cartoonRank = () => {
   return axios({

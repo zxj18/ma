@@ -39,7 +39,6 @@
             <button class="special-btn">
               <span v-if="book.specialPrice !== book.price" class="old">{{book.price}}点券</span>
               <span>{{book.specialPrice}}点券</span>
-
             </button>
           </div>
 
@@ -57,7 +56,7 @@ import { getToken } from '../../utils/auth';
 
 
 export default {
-  props: ['chapter', 'book', 'totalSpecialPrice'],
+  props: ['chapter', 'book', 'totalSpecialPrice', ' totalPrice'],
   data() {
     return {
 
@@ -67,7 +66,6 @@ export default {
     // eslint-disable-next-line vue/no-dupe-keys
     tapItem(book, chapter) {
       if (chapter.exemption === 1 || book.priceType === 1 || chapter.isBuy === 1 || chapter.isUseCoupon === 1) {
-        debugger;
         if (getToken()) {
           this.$router.push({
             name: 'content',
@@ -76,9 +74,10 @@ export default {
               episode: this.chapter.episode,
               totalepisode: this.chapter.totalEpisode,
               bookSpeicalPrice: this.totalSpecialPrice,
-              specialPrice: this.chapter.specialPrice,
+              specialPrice: this.specialPrice,
               bookName: this.chapter.title,
               book: this.book,
+              totalPrice: this.totalSpecialPrice,
 
 
             },

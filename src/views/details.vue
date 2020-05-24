@@ -97,10 +97,10 @@
 
       <div class="price" v-show="book.priceType === 0" >
         <p>购买全部章节:</p>
-        <div class="highlight num" v-if="book.price===book.specialPrice">{{ (book.totalEpisode-book.startingChapter+1)*book.price}}点</div>
-        <div class="highlight num" v-if="book.price!==book.specialPrice">{{ (book.totalEpisode-book.startingChapter+1)*book.specialPrice}}点</div>
+        <div class="highlight num" >{{this.totalSpecialPrice}}点</div>
+        <!-- <div class="highlight num" v-if="book.price!==book.specialPrice">{{ (book.totalEpisode-book.startingChapter+1)*book.specialPrice}}点</div>
         <div class="tips" v-if="book.price!==book.specialPrice">立省{{(book.price-book.specialPrice)*book.totalEpisode-book.startingChapter+1}}点</div>
-        <div class="tips" v-if="book.price===book.specialPrice"></div>
+        <div class="tips" v-if="book.price===book.specialPrice"></div> -->
       </div>
       <button class="btn" v-show="book.priceType === 0" v-if="book.serialized ===0" @click="tapBuy">全部购买</button>
     </div>
