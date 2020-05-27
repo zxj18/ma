@@ -21,8 +21,11 @@
         <div class="head">
           <img src="../../assets/images/home_type1.png" />
           <p>精選</p>
+           <div class="con">
+          <img  v-on:click="initRecommend" style="margin-left:200px;margin-bottom:-5px;" src="../../assets/images/home_btn1.png" />
+          <h3  v-on:click="initRecommend" style="margin-left:225px;margin-top:-14px;font-weight: 500;font-size:16px;">换一批</h3>
         </div>
-
+        </div>
 
         <div class="content">
           <router-link
@@ -31,15 +34,15 @@
             class="recommend-item"
             :to="{ name: 'details', query: {'id':recommend.id,} }"
           >
-            <img :src="recommend.cover" style="width:109.09px;height:145.63px;" />
-            <div class="tags">
+            <img :src="recommend.cover" style="width:109.09px;height:145.63px;border-bottom-radius: 10px;" />
+            <!-- <div class="tags">
               <div class="tag-free" v-if="recommend.priceType === 0">特价</div>
               <div class="tag-free" v-if="recommend.priceType === 1">免费</div>
               <div class="tag-recommend" v-if="recommend.isRecommend==0">推荐</div>
-            </div>
+            </div> -->
             <img class="cover-ban" src="../../assets/images/cover_ban.png" v-show="isAdult" />
             <p class="recommend-name">{{recommend.title}}</p>
-             <div class="score">
+            <div class="score">
               <div class="star">
                 <img src="../../assets/images/star.png" />
                 <img src="../../assets/images/star.png" />
@@ -51,11 +54,6 @@
             </div>
             <!-- <h2>{{recommend.priceType}}</h2> -->
           </router-link>
-        </div>
-
-        <div class="btn" v-on:click="initRecommend">
-          <img src="../../assets/images/home_btn1.png" />
-          <p>换一批</p>
         </div>
       </div>
 
@@ -82,7 +80,7 @@
             <p>查看完整榜单</p>
           </div>
         </router-link>
-      </div> -->
+      </div>-->
       <div class="banner">
         <vue-swiper :banner="this.banner1" @bannerClick="bannerClick1" />
       </div>
@@ -94,23 +92,30 @@
         <div class="content">
           <book-update v-for="book in pursues" :key="book.id" :book="book" />
           <div class="book-empty"></div>
-        </div>
-        <div class="category">
-        <div class="head" style="margin-top:10px;">
-          <img src="../../assets/images/end.png" />
-          <p>已完结</p>
-        </div>
-        <div class="content">
-          <book-score v-for="book in this.specialDatas" :key="book.id" :book="book" />
-          <div class="book-empty"></div>
-        </div>
-        <router-link :to="{ name: 'classification', query: { type: 0, priceType: 2,}}">
-          <div class="btn">
-            <img src="../../assets/images/endall.png" />
-            <p>查看全部完结</p>
           </div>
-        </router-link>
-      </div>
+          <router-link :to="{ name: 'classification', query: { type: 0, priceType: 1,}}">
+            <div class="btn">
+              <img src="../../assets/images/endall.png" />
+              <p>查看全部连载</p>
+            </div>
+          </router-link>
+
+        <div class="category">
+          <div class="head" style="margin-top:10px;">
+            <img src="../../assets/images/end.png" />
+            <p>已完结</p>
+          </div>
+          <div class="content">
+            <book-score v-for="book in this.specialDatas" :key="book.id" :book="book" />
+            <div class="book-empty"></div>
+          </div>
+          <router-link :to="{ name: 'classification', query: { type: 0, priceType: 0,}}">
+            <div class="btn">
+              <img src="../../assets/images/endall.png" />
+              <p>查看全部完结</p>
+            </div>
+          </router-link>
+        </div>
       </div>
     </div>
 
@@ -121,33 +126,33 @@
 
 <script>
 /*eslint-disable*/
-import Book from "@/components/common/book.vue";
-import BookUpdate from "@/components/common/book-update.vue";
-import BookScore from "@/components/common/book-score.vue";
-import VueSwiper from "@/components/common/vue-swiper.vue";
-import SignIn from "@/components/home/sign-in.vue";
-import Attention from "@/components/home/attention.vue";
-import { hasLogin, setAdult, setUnAdult, getAdult } from "../../utils/auth";
+import Book from '@/components/common/book.vue';
+import BookUpdate from '@/components/common/book-update.vue';
+import BookScore from '@/components/common/book-score.vue';
+import VueSwiper from '@/components/common/vue-swiper.vue';
+import SignIn from '@/components/home/sign-in.vue';
+import Attention from '@/components/home/attention.vue';
+import { hasLogin, setAdult, setUnAdult, getAdult } from '../../utils/auth';
 
 export default {
   data() {
     return {
       isShowSignIn: false,
       bannerParam: {
-        type: 1
+        type: 1,
       },
       bannerParam1: {
-        type: 2
+        type: 2,
       },
       banner: [],
       banner1: [],
       recommends: [],
       specialData: [],
-      specialDatas:[],
+      specialDatas: [],
       bookRank: [],
       pursues: [],
       isAdult: false,
-      isAttention: false
+      isAttention: false,
     };
   },
   mounted() {
@@ -156,13 +161,13 @@ export default {
 
   methods: {
     initData() {
-      this.isAdult = getAdult() === "1";
+      this.isAdult = getAdult() === '1';
       console.log(this.isAdult);
       this.initBanner(this.bannerParam);
       this.initBanner(this.bannerParam1);
       this.initRecommend();
       this.freeOrSpecialPrice();
-      this.cartoonEnd()
+      this.cartoonEnd();
 
       this.cartoonRank();
       this.cartoonPursue();
@@ -191,7 +196,7 @@ export default {
       this.initData();
     },
     initBanner(param) {
-      this.$api.banner.list(param).then(res => {
+      this.$api.banner.list(param).then((res) => {
         if (res.code === 200) {
           if (param.type === 1) {
             this.banner = res.data;
@@ -203,38 +208,37 @@ export default {
     },
 
     initRecommend() {
-      this.$api.cartoon.getRecommend().then(res=> {
+      this.$api.cartoon.getRecommend().then((res) => {
         if (res.code === 200) {
-
           this.recommends = res.data;
         }
       });
     },
     //免费特价接口
     freeOrSpecialPrice() {
-      this.$api.cartoon.freeOrSpecialPrice().then(res => {
+      this.$api.cartoon.freeOrSpecialPrice().then((res) => {
         if (res.code === 200) {
           this.specialData = res.data;
         }
       });
     },
     //完结接口
-   cartoonEnd() {
-      this.$api.cartoon.cartoonEnd().then(res => {
+    cartoonEnd() {
+      this.$api.cartoon.cartoonEnd().then((res) => {
         if (res.code === 200) {
           this.specialDatas = res.data;
         }
       });
     },
     cartoonRank() {
-      this.$api.cartoon.cartoonRank().then(res => {
+      this.$api.cartoon.cartoonRank().then((res) => {
         if (res.code === 200) {
           this.bookRank = res.data;
         }
       });
     },
     cartoonPursue() {
-      this.$api.cartoon.cartoonPursue().then(res => {
+      this.$api.cartoon.cartoonPursue().then((res) => {
         if (res.code === 200) {
           this.pursues = res.data;
         }
@@ -242,49 +246,46 @@ export default {
     },
     bannerClick(banner) {
       if (banner.urlType === 0) {
-        document.location = "http://baidu.com/";
+        document.location = 'http://baidu.com/';
       }
       if (banner.urlType === 1) {
         this.$router.push({
-          path: "details",
+          path: 'details',
           query: {
-            id: banner.cartoonId
-          }
+            id: banner.cartoonId,
+          },
         });
       }
       if (banner.urlType === 2) {
         this.$router.push({
-          path: "wallet",
+          path: 'wallet',
           query: {
-            id: banner.cartoon_id
-          }
+            id: banner.cartoon_id,
+          },
         });
       }
-
     },
     bannerClick1(banner) {
       if (banner.urlType === 0) {
-        document.location = "http://baidu.com/";
+        document.location = 'http://baidu.com/';
       }
       if (banner.urlType === 1) {
         this.$router.push({
-          path: "details",
+          path: 'details',
           query: {
-            id: banner.cartoonId
-          }
+            id: banner.cartoonId,
+          },
         });
       }
       if (banner.urlType === 2) {
         this.$router.push({
-          path: "wallet",
+          path: 'wallet',
           query: {
-            id: banner.cartoon_id
-          }
+            id: banner.cartoon_id,
+          },
         });
       }
-    }
-
-
+    },
   },
 
   components: {
@@ -293,8 +294,8 @@ export default {
     BookScore,
     VueSwiper,
     SignIn,
-    Attention
-  }
+    Attention,
+  },
 };
 </script>
 
@@ -308,8 +309,6 @@ export default {
     justify-content: space-between;
     padding: 30px 0;
     margin-bottom: 20px;
-
-
 
     .title {
       font-size: 42px;
@@ -325,11 +324,11 @@ export default {
         max-width: 100%;
         width: 95px;
         height: 43px;
-        background: url("../../assets/images/off_btn.png") no-repeat;
+        background: url('../../assets/images/off_btn.png') no-repeat;
         background-size: 100% 100%;
       }
       .on {
-        background: url("../../assets/images/on_btn.png") no-repeat;
+        background: url('../../assets/images/on_btn.png') no-repeat;
         background-size: 100% 100%;
       }
     }
@@ -387,7 +386,6 @@ export default {
           color: #231815;
           font-weight: bold;
         }
-
       }
 
       .content {

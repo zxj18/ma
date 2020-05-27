@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <div class="body" @click="$emit('close')" >
   <div class="header" >
   <div class="wallet">
     <header-box :title="'充值'">
@@ -75,15 +75,12 @@
     <div v-html="html"></div>
     <buy-chapter-popups
       v-if="isShowBuyPopup"
-      :book="book"
+
       :selectRechargePkgId="selectRechargePkgId"
       :chapter="chapter"
       :typeId="typeIds"
       :pkgMoney="pkgMoney"
       :pkg="pkg"
-
-      :bookSpeicalPrice="this.totalSpecialPrice"
-      @select="buyPopupSelect"
 
     >
     </buy-chapter-popups>
@@ -98,10 +95,7 @@ import SelectBox from '@/components/common/select-box.vue';
 import BuyChapterPopups from '@/components/common/buy-chapter-popups.vue';
 
 export default {
-  method: 'get',
-  headers: {
-    'Content-Type': 'application/json;charset=UTF-8',
-  },
+  props: ['show'],
 
   data() {
     return {
@@ -205,8 +199,9 @@ export default {
       this.isShowBuyPopup = true;
       console.log(typeId);
       this.typeIds = typeId;
-      // this.$emit('typeId', this.typeId);
+      this.$emit('typeId', this.typeId);
     },
+
   },
   created() {
     this.getRechargePkgList();

@@ -1,11 +1,16 @@
-<template>
-  <confirm>
+<template >
+ <div>
+  <confirm class="cover" v-show="show">
     <ul class="conn">
       <li v-for="item in getlist" :key="item.id">
         <button @click="tapRecharge(item.id)">{{ item.show_name }}</button>
       </li>
     </ul>
+      <div class="out">
+      <button @click="hiddenShow()"><h3>取消</h3></button>
+      </div>
   </confirm>
+  </div>
 </template>
 
 <script>
@@ -13,10 +18,11 @@
 import Confirm from '@/components/common/confirm.vue';
 
 export default {
-  props: ['typeId', 'selectRechargePkgId','pkgMoney'],
+  props: ['typeId', 'selectRechargePkgId','pkgMoney',],
   data() {
     return {
       getlist: [],
+      show: true,
       getPawList: [],
       payParams: {
         //money: (Math.random() / 10).toFixed(2),
@@ -30,6 +36,14 @@ export default {
     };
   },
   methods: {
+      hiddenShow() {
+    //   var that = this;
+    //   that.show = false;
+    // //  document.querySelector('.cover').style.display="none"
+    this.$router.go('0')
+
+
+    },
     tapRecharge(payWayIds) {
       console.log(payWayIds);
       // if (text === 1) {
@@ -47,10 +61,12 @@ export default {
       });
     },
 
+
     getpayWayList() {
       this.$api.payWay.getpayWayList({ typeId: this.typeId }).then(res => {
         if (res.code === 200) {
           this.getlist = res.data;
+
         }
       });
     }
@@ -58,11 +74,14 @@ export default {
   created() {
     this.getpayWayList();
   },
-  watch: {
-    typeId() {
-      this.getpayWayList();
-    }
-  },
+    mounted: function () {
+
+        },
+  // watch: {
+  //   typeId() {
+  //     this.getpayWayList();
+  //   }
+  // },
   components: {
     Confirm
   }
@@ -77,6 +96,17 @@ export default {
   margin-top: 40px;
   border-radius: 50px;
 }
+.out button{
+  width: 492px;
+  height: 78px;
+  background:grey;
+  margin-top: 40px;
+  border-radius: 50px;
+
+}
+.out button h3{
+  color:#ffffff;
+ }
 .buy-popus {
   font-size: 35px;
   .title {
@@ -134,6 +164,15 @@ export default {
           top: 4px;
           left: 4px;
         }
+         .button-list {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 40px;
+        img {
+          width: 225px;
+          height: 75px;
+        }
+      }
       }
     }
   }

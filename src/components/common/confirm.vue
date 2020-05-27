@@ -16,7 +16,7 @@
     }
 -->
 <template lang="html">
-  <transition name="modal">
+  <transition name="modal" @click="$emit('close')">
     <div class="modal-mask" :style="{height: pageHeight}">
       <div class="modal-wrapper">
         <div class="modal-container" @click.stop>
@@ -46,7 +46,8 @@
 
 <script>
 export default {
-  props: ['content', 'buttons'],
+  // eslint-disable-next-line comma-spacing
+  props: ['show' , 'content', 'buttons'],
   computed: {
     pageHeight() {
       return `${document.body.offsetHeight}px`;
@@ -131,7 +132,8 @@ export default {
       text-align: center;
       font-size: 34px;
       line-height: 1.5;
-      padding: 75px 24px 61px;
+      // padding: 75px 24px 61px;
+      padding: 30px 24px 61px;
       position: relative;
     }
 

@@ -1,6 +1,6 @@
 
 <template>
-  <div class="logout" v-if="show" @click="$emit('close')">
+  <div class="logout" v-if="show">
       <div class="content" @click.stop>
         <h3>您确定要登出吗？</h3>
         <p>退出登入后书柜和账户信息将不再展示</p>

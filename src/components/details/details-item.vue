@@ -33,6 +33,7 @@
           <div v-if="book.specialPrice === book.price">
             <button class="buy-btn">{{book.price}}点券</button>
 
+
           </div>
 
           <div v-else>
@@ -56,7 +57,7 @@ import { getToken } from '../../utils/auth';
 
 
 export default {
-  props: ['chapter', 'book', 'totalSpecialPrice', ' totalPrice'],
+  props: ['chapter', 'book', 'totalSpecialPrice', ' totalPrice', 'totalEpisode'],
   data() {
     return {
 
@@ -72,7 +73,7 @@ export default {
             query: {
               cartoonId: this.chapter.cartoonId,
               episode: this.chapter.episode,
-              totalepisode: this.chapter.totalEpisode,
+              totalEpisode: this.book.totalEpisode,
               bookSpeicalPrice: this.totalSpecialPrice,
               specialPrice: this.specialPrice,
               bookName: this.chapter.title,

@@ -1,3 +1,4 @@
+
 <template>
   <div class="comic">
     <div class="header" v-show="isShowHeader">
@@ -35,10 +36,10 @@
       <div class="title" @click="tapDirectory">目录</div>
       <div class="switch">
         <img :src="isUpClick ? iconUpYes : iconUpNo">
-        <p :class="{disable: !isUpClick }" @click="pre" :name="this.title">上一话</p>
+        <p :class="{disable: !isUpClick }" @click="pre">上一话</p>
       </div>
       <div class="switch">
-        <p :class="{disable: !isDownClick }" @click="next" :name="this.title">下一话</p>
+        <p :class="{disable: !isDownClick }" @click="next" >下一话</p>
         <img :src="isDownClick ? iconDownYes : iconDownNo">
       </div>
       <div @click="tapGoTop">
@@ -59,6 +60,8 @@
       :price="price"
       :bookSpeicalPrice="bookSpeicalPrice"
       :totalPrice="totalPrice"
+      :name="this.title"
+      :totalEpisode="totalEpisode"
       :specialPrice="specialPrice"
       @select="buyPopupSelect">
     </buy-chapter-popup>
@@ -103,7 +106,7 @@ export default {
       specialPrice: this.$route.query.specialPrice,
       totalPrice: this.$route.query.totalPrice,
       book: this.$route.query.book,
-      totalEpisode: this.$route.query.totalepisode,
+      totalEpisode: this.$route.query.totalEpisode,
       cartoonId: this.$route.query.cartoonId,
       episode: this.$route.query.episode,
       title: this.$route.query.bookName,
@@ -112,9 +115,12 @@ export default {
         pageSize: 10,
         cartoonId: this.$route.query.cartoonId,
         episode: this.$route.query.episode,
+        totalEpisode: this.$route.query.totalEpisode,
       },
       listParams: {
         cartoonId: this.$route.query.cartoonId,
+        totalEpisode: this.$route.query.totalEpisode,
+
 
         pageNum: 1,
         pageSize: 500,
@@ -123,6 +129,7 @@ export default {
       buyParams: {
         cartoonId: this.$route.query.cartoonId,
         totalPrice: this.$route.query.totalPrice,
+        totalEpisode: this.$route.query.totalEpisode,
         chapterId: '',
       },
       busy: true,
@@ -160,12 +167,13 @@ export default {
         return;
       }
       this.isPre = true;
+      // eslint-disable-next-line no-restricted-globals
       this.tapContentItem(episode);
     },
     next() {
       debugger;
       const episode = parseInt(this.episode, 10) + 1;
-      if (episode < this.totalEpisode) {
+      if (episode > this.totalEpisode) {
         return;
       }
       this.isPre = false;
@@ -195,7 +203,7 @@ export default {
           if (selectItem === 1) {
             this.buyParams.chapterId = '';
           } else {
-            if (this.pre) {
+            if (this.isPre) {
               this.episode = parseInt(this.episode, 10) - 1;
             } else {
               this.episode = parseInt(this.episode, 10) + 1;
@@ -207,6 +215,7 @@ export default {
             if (res.code === 200) {
               this.addBook();
               this.getCartoonTapItem(this.params.episode);
+              console.log(res.data);
             } else {
               this.isShowFailPopup = true;
             }
@@ -236,6 +245,8 @@ export default {
       for (i = 0; i < this.chapterList.length; i += 1) {
         if (this.chapterList[i].episode === episode) {
           this.chapter = this.chapterList[i];
+
+          this.title = this.chapterList[i].title;
           if (this.chapter.exemption === 1 || this.chapter.isBuy === 1 || this.book.priceType === 1 || this.chapter.isUseCoupon === 1) {
             needBuy = false;
             break;

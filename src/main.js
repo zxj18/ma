@@ -7,7 +7,6 @@ import 'lib-flexible';
 import 'vue2-toast/lib/toast.css';
 import api from './http';
 import clipper from './assets/clipper/clipper';
-
 // eslint-disable-next-line import/order
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
