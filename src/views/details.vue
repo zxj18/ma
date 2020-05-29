@@ -8,8 +8,8 @@
         <img class="icon-bookcase" src="../assets/images/content_bookcase.png">
       </router-link>
     </header-box>
-    <div class="banner">
-      <img class="banner" :src="book.detailCover">
+    <div class="banner" >
+      <img class="banner" style="height:160px;width:100%;" :src="book.detailCover">
 <!--      <img class="banner" src="../assets/images/mine_bg.png">-->
       <div class="tags">
         <div class="tag-free" v-if="book.priceType === 1">免费</div>
@@ -319,11 +319,15 @@ export default {
       margin-left: 44px;
     }
     .banner {
-      height: 300px;
+      // max-width:1000px;
+      // max-height:300px;
+
+      // // overflow: hidden;
       position: relative;
       img {
-        width: 100%;
-        height: 100%;
+        // width: 100%;
+        // height: 100%;
+       clip:rect(50px,100px,-100px,50px);
       }
       .tags {
         height: 100px;

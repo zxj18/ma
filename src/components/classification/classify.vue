@@ -31,7 +31,7 @@
       <book-score v-for="book in this.cartoonsList" :key="book.id" :book="book"/>
     </div>
     <p v-show="infiniteMsgShow" class="tips">加载更多ing</p>
-    <p v-show="!infiniteMsgShow" class="tips"> 没有更多数据</p>
+    <p v-show="!infiniteMsgShow" class="tips" style="font-size:14px;"> 没有更多数据</p>
   </div>
 </template>
 

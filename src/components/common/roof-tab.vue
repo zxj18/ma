@@ -3,7 +3,7 @@
     <div class="tab-box">
       <div
         v-for="(tab, index) in data"
-        :key="index"
+        :key="index + 'index'"
         :class="{ tab: true, acitve: acitveI === index}"
         @click="tapTab(index)">
         {{tab}}

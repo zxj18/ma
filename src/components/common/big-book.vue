@@ -1,15 +1,14 @@
 <template>
   <router-link :to="{ name: 'details', query: {id: book.id} }">
-    <div class="big-book" >
+    <div class="big-book" v-if="book">
       <div class="left">
-        <img class="cover-ban" v-if="book.isAdult ===1" >
-         <img src="../../assets/images/cover_ban.png" style="width:20px;height:20px;"/>
+        <img class="picture" :src="book.cover">
+        <img class="cover-ban" src="../../assets/images/cover_ban.png" v-show="isAdult">
       </div>
-        <img class="picture" :src="book.cover" >
       <div class="content">
         <div class="title">{{book.title}}</div>
-        <div class="chapter">{{book.introduce}}</div>
-        <div class="update">更新到第{{book.currentEpisode}}话</div>
+        <div class="chapter">{{book.description}}</div>
+        <div class="update">更新到第{{book.totalEpisode}}话</div>
       </div>
       <slot></slot>
     </div>
@@ -26,14 +25,13 @@ export default {
       isAdult: false,
     };
   },
-
+  mounted() {
+    this.initData();
+  },
   methods: {
     initData() {
       this.isAdult = getAdult() === '1';
     },
-  },
-  mounted() {
-    this.initData();
   },
 };
 </script>

@@ -22,7 +22,7 @@
           <img src="../../assets/images/home_type1.png" />
           <p>精選</p>
            <div class="con">
-          <img  v-on:click="initRecommend" style="margin-left:200px;margin-bottom:-5px;" src="../../assets/images/home_btn1.png" />
+          <img  v-on:click="initRecommend" style="margin-left:200px;margin-bottom:-5px;border-radius: 0px 0px 10px 10px; " src="../../assets/images/home_btn1.png" />
           <h3  v-on:click="initRecommend" style="margin-left:225px;margin-top:-14px;font-weight: 500;font-size:16px;">换一批</h3>
         </div>
         </div>
@@ -140,10 +140,15 @@ export default {
       isShowSignIn: false,
       bannerParam: {
         type: 1,
+        typeNum:1,
+
+
       },
-      bannerParam1: {
+       bannerParam1: {
         type: 2,
-      },
+        typeNum:1,
+
+        },
       banner: [],
       banner1: [],
       recommends: [],
@@ -153,7 +158,11 @@ export default {
       pursues: [],
       isAdult: false,
       isAttention: false,
+       params: {
+        // platform: this.$route.query.platform,
+      }
     };
+
   },
   mounted() {
     this.initData();
@@ -168,6 +177,7 @@ export default {
       this.initRecommend();
       this.freeOrSpecialPrice();
       this.cartoonEnd();
+      this.gitvisitors()
 
       this.cartoonRank();
       this.cartoonPursue();
@@ -230,6 +240,17 @@ export default {
         }
       });
     },
+    //首页统计访问数
+       gitvisitors() {
+      this.$api.cartoon.gitvisitors().then((res) => {
+        if (res.code === 200) {
+          console.log(res.data)
+        }
+      });
+    },
+
+
+
     cartoonRank() {
       this.$api.cartoon.cartoonRank().then((res) => {
         if (res.code === 200) {
@@ -261,6 +282,15 @@ export default {
           path: 'wallet',
           query: {
             id: banner.cartoon_id,
+          },
+        });
+      }
+       if (banner.urlType === 3) {
+        this.$router.push({
+          path: 'wallet',
+           query: {
+           typeNum:banner.type,
+
           },
         });
       }

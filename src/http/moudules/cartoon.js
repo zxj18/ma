@@ -16,6 +16,15 @@ export const getpayTypeList= () => {
     headers: {'Content-Type':'application/x-www-form-urlencoded'},
   })
 }
+//首页记录访问数
+export const gitvisitors = () => {
+  return axios({
+    url: '/cartoon/visitors',
+    method: 'get'
+  })
+}
+
+
 
 export const freeOrSpecialPrice = () => {
   return axios({

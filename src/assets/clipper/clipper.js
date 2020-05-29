@@ -65,7 +65,7 @@ export default {
       this.cancelBtn = document.getElementById('cancel_clip');
       //确定事件
       this.addEvent(this.clickBtn, 'click', function() {
-        self.crop();
+        self.crop() ;
       })
       //取消事件
       this.addEvent(this.cancelBtn, 'click', function() {

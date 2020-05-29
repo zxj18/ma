@@ -3,14 +3,14 @@
     <div class="big-book" v-if="book">
       <div class="left">
         <img class="picture" :src="book.cover">
-        <img class="cover-ban" src="../../assets/images/cover_ban.png" v-show="!isAdult">
+         <div class="cover-ban"  v-if="book.isAdult ===1">
+        <img class="cover-ban" src="../../assets/images/cover_ban.png">
+        </div>
       </div>
       <div class="content">
         <div class="title">{{book.title}}</div>
         <div class="chapter">{{book.introduce}}</div>
-         <div class="tag-free">{{book.isAdult}}</div>
-
-        <div class="update">更新到第{{book.totalEpisode}}话</div>
+       <div class="update">更新到第{{book.totalEpisode}}话</div>
       </div>
       <slot></slot>
     </div>

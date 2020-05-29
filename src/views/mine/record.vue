@@ -81,9 +81,9 @@ export default {
             // } else if (buyType === 3) {
             //   rechargeT = 'APPLEPAY';
             // }
-            if (buyType === 2) {
+            if (buyType === 1) {
               rechargeT = 'AliPAY';
-            } else if (buyType === 3) {
+            } else if (buyType === 2) {
               rechargeT = 'WxPay';
             }
             const status = list[i].status;
