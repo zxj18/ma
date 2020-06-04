@@ -8,7 +8,7 @@
         @click="tapTab(index)">{{tab}}</div>
     </div>
     <div class="content">
-      <big-book v-for="book in this.cartoonsList" :key="book.id" :book="book"/>
+      <big-book v-for="(book,key) in this.cartoonsList" :key="key" :book="book"/>
     </div>
     <p v-show="infiniteMsgShow" class="tips">加载更多ing</p>
     <p v-show="!infiniteMsgShow" class="tips"> 没有更多数据</p>
@@ -54,7 +54,8 @@ export default {
         if (res.code === 200) {
           const lists = res.data.content;
           for (let i = 0; i < lists.length; i += 1) {
-            this.cartoonsList.push({ ...lists[i] });
+            // this.cartoonsList.push({ ...lists[i] });
+            this.$set(this.cartoonsList, i, lists[i]);
           }
           if (this.params.pageNum < res.data.totalPages) {
             this.busy = false;

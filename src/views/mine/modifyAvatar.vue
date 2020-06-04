@@ -7,6 +7,7 @@
     <input class="camera" ref="fileCamera" type="file" accept="image/*" capture="camera" @change="getCamera" />
     <input class="photo" ref="filePhoto" type="file" accept="image/*" @change="getPhoto" />
     <p>更换头像</p>
+
     <button @click="clickCamera">拍照</button>
     <button @click="clickPhoto">从手机相册选择</button>
     <button @click="cancel">取消</button>

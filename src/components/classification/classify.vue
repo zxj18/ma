@@ -55,7 +55,7 @@ export default {
       list: ['推荐', '最热', '最新'],
       params: {
         pageNum: 1,
-        pageSize: 5,
+        pageSize: 6,
         priceType: 0, // 价格类型 1免费 2特价
         rankType: '', //  排名类型，0人气榜 1新番榜 2收藏榜
         cartoonCatId: '', //  排分类id
@@ -139,6 +139,7 @@ export default {
           for (let i = 0; i < lists.length; i += 1) {
             this.cartoonsList.push({ ...lists[i] });
           }
+
           if (this.params.pageNum < res.data.totalPages) {
             this.busy = false;
             console.log(this.busy);

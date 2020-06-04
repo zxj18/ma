@@ -59,6 +59,7 @@ export default {
     },
     send() {
       this.$router.go(-1);
+
      }
   },
 }

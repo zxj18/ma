@@ -1,8 +1,9 @@
+/* eslint-disable indent */
 <template>
   <div class="sign-in" v-if="show" @click="$emit('close')">
     <div class="content" @click.stop>
       <img @click="$emit('close')" class="close" src="../../assets/images/close.png">
-      <div class="title">连续签到 1 天</div>
+      <div class="title">连续签到{{this.cSignDay}}天</div>
       <div class="vouchers">
         <div
           v-for="(item, i) in couponList"
@@ -41,7 +42,14 @@ export default {
     return {
       signParam: {
         toSignDay: undefined,
+        uid: this.$route.query.id,
       },
+      params: {
+        uid: this.$route.query.id,
+
+
+      },
+
       couponList: [],
     };
   },
@@ -55,19 +63,23 @@ export default {
       }
     },
     initSignList() {
-      this.$api.common.getSignList().then((res) => {
+      this.$api.common.getSignList(this.params).then((res) => {
         if (res.code === 200) {
           this.couponList = [];
           this.couponList = res.data;
+          this.cSignDay = res.data.cSignDay;
           this.getContinueSignCount();
         }
       });
     },
     getContinueSignCount() {
-      this.$api.user.getContinueSignCount().then((res) => {
+      // debugger;
+      this.$api.user.getContinueSignCount(this.params).then((res) => {
         if (res.code === 200) {
           const temp = this.couponList;
           console.log(temp);
+          this.cSignDay = res.data.cSignDay;
+          this.uid = res.data.uid;
           const size = temp.length;
           let i;
           for (i = 0; i < size; i += 1) {
@@ -92,6 +104,7 @@ export default {
         if (res.code === 200) {
           const coupon = localStorage.getItem('coupon');
           localStorage.setItem('coupon', parseInt(coupon, 10) + 1);
+          this.params.uids = this.params.uid;
           console.log(res.data);
           this.initSignList();
         } else {

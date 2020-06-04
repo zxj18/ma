@@ -12,6 +12,7 @@
       </div>
       <slot></slot>
     </div>
+
   </router-link>
 </template>
 
@@ -71,8 +72,8 @@ export default {
       .chapter {
         color: #3F3633;
         font-weight:400;
-        margin-bottom: 43px;
-        font-size:30px;
+        margin-bottom: 30px;
+        font-size:35px;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;

@@ -107,10 +107,11 @@ export function useCoupon(data) {
 }
 
 
-export function getContinueSignCount() {
+export function getContinueSignCount(data) {
   return axios({
-    url: 'user/getContinueSignCount',
+    url: 'user/getContinueSignCount?uid',
     method: 'post',
+    params: data,
   })
 }
 

@@ -10,7 +10,7 @@
     </header-box>
     <div class="banner" >
       <img class="banner" style="height:160px;width:100%;" :src="book.detailCover">
-<!--      <img class="banner" src="../assets/images/mine_bg.png">-->
+<!--   <img class="banner" src="../assets/images/mine_bg.png">-->
       <div class="tags">
         <div class="tag-free" v-if="book.priceType === 1">免费</div>
         <div class="tag-recommend" v-if="book.isRecommend === 1">推荐</div>
@@ -36,10 +36,12 @@
           <span class="author" v-if="book.author">作家：{{book.author}}</span>
           <span class="author" v-else>作家：匿名</span>
         </div>
-        <div  @click="goPage('score')">
+        <div v-if="this.isScore===0">
+        <div   @click="goPage('score')">
           <div class="go-score">
             去评分
           </div>
+        </div>
         </div>
         <div class="rank">
           <div>
@@ -73,7 +75,9 @@
       <div class="head">
         <div class="left">
           <p>目录</p>
-          <div>上次看到第{{book.totalEpisode}}话</div>
+          <div class="con" v-if="this.isHistory===1" >
+          <h3>当前看到第{{this.history}}话</h3>
+          </div>
         </div>
         <select-box
           :text="text"
@@ -283,6 +287,9 @@ export default {
           console.log(res.data);
           this.totalSpecialPrice = res.data.totalSpecialPrice;
           this.totalPrice = res.data.totalPrice;
+          this.isHistory = res.data.isHistory;
+          this.isScore = res.data.isScore;
+          this.history = res.data.history;
           this.isAllBuy = res.data.isAllBuy;
           for (let i = 0; i < this.bookList.length; i += 1) {
             if (this.bookList[i].priceType !== 1 && this.bookList[i].isBuy !== 1 && this.bookList[i].isUseCoupon !== 1) {

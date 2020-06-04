@@ -12,9 +12,13 @@
         <router-link :to="{ name: 'bookcase', query: { type: 1} }">
           <img class="icon-history" src="../../assets/images/home_history.png" />
         </router-link>
-        <img class="icon-sign-in" @click="showSignIn" src="../../assets/images/home_sign_in.png" />
+       <img class="icon-sign-in" @click="showSignIn" src="../../assets/images/home_sign_in.png" />
       </div>
     </div>
+    <div class="Bubble">
+      <img style="margin-left:40px;" src="../../assets/images/Bubble.png">
+      <img class="Bappleout"  @click="hiddenShow()"  src="../../assets/images/Bapple.out.png">
+      </div>
     <vue-swiper :banner="this.banner" @bannerClick="bannerClick" />
     <div class="main">
       <div class="category">
@@ -138,6 +142,7 @@ export default {
   data() {
     return {
       isShowSignIn: false,
+      show: false,
       bannerParam: {
         type: 1,
         typeNum:1,
@@ -186,6 +191,11 @@ export default {
       if (hasLogin(this)) {
         this.isShowSignIn = !this.isShowSignIn;
       }
+    },
+    hiddenShow() {
+      var con =document.querySelector('.Bubble')
+      con.style.display="none"
+
     },
     showAdult() {
       this.isAdult = !this.isAdult;
@@ -236,7 +246,8 @@ export default {
     cartoonEnd() {
       this.$api.cartoon.cartoonEnd().then((res) => {
         if (res.code === 200) {
-          this.specialDatas = res.data;
+          this.pursues = res.data;
+
         }
       });
     },
@@ -258,10 +269,11 @@ export default {
         }
       });
     },
+    //连载接口
     cartoonPursue() {
       this.$api.cartoon.cartoonPursue().then((res) => {
         if (res.code === 200) {
-          this.pursues = res.data;
+          this.specialDatas = res.data;
         }
       });
     },
@@ -330,7 +342,21 @@ export default {
 </script>
 
 <style scoped lang="less">
-.home {
+ .Bappleout {
+ position: relative;
+ left:-38px;
+ top:-70px;
+
+ }
+ .Bubble{
+  position: relative;
+  top:40px;
+  z-index:9999;
+ }
+ .Bubble{
+   margin-top:-80px ;
+ }
+  .home {
   font-size: 30px;
   padding: 0 30px;
 
@@ -365,6 +391,7 @@ export default {
     .tag-recommend {
       background-color: #ffb400;
     }
+
 
     .icon-box {
       img {

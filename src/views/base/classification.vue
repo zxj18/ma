@@ -3,7 +3,7 @@
     <roof-tab
       :data="roofTabDat"
       :acitveIndex="tabI"
-      :key="tabI"
+      :key="'B'+tabI"
       @tapTab='tapRoofTab'>
       <router-link :to="{ name: 'search' }">
         <img class="icon-search" src="../../assets/images/home_search.png">
